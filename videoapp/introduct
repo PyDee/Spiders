@@ -1,0 +1,94 @@
+项目名称：芒果TV专项数据采集
+采集平台：腾讯，芒果tv， 优酷视频，爱奇艺
+数据维度：评论数，播放量，热度等
+开发技术栈：scrapy + mongo + lxml + re + pandas + openpyxl
+数据量：20000+
+
+腾  讯：
+    编 码：charset="utf-8"
+    电影页面：https://v.qq.com/channel/movie?_all=1&channel=movie&listpage=1&sort=18&year=-1
+    综艺页面：https://v.qq.com/channel/variety?_all=1&channel=variety&iyear=50&listpage=1&sort=4
+    电视剧页面：https://v.qq.com/channel/tv?_all=1&channel=tv&listpage=1&sort=18&year=50
+    动漫页面：https://v.qq.com/channel/cartoon?listpage=1&channel=cartoon&sort=18&_all=1
+    纪录片页面：https://v.qq.com/channel/doco?listpage=1&channel=doco&sort=18&_all=1
+
+    数据源：https://v.qq.com/x/bu/pagesheet/list?_all=1&append=1&channel=movie&listpage=2&offset=90&pagesize=30&sort=18&year=-1
+    请求参数：
+         _all: 1
+         append: 1
+         channel: movie
+         listpage: 2
+         offset: 90
+         pagesize:
+         sort: 18
+         year: -1
+    缺 陷：播放次数不是准确值：2亿
+          start_urls 如果是多页的情况下，需要手动添加，怎么处理更好呢？
+          播放页，有两个播放次数，其值不同, 详情页获取位置，json获取位置
+          没有上线时间， 需要二次请求获取， （数据源的，页面解析：data-float）
+    二次请求包含上映时间：https://v.qq.com/detail/m/mzc002006tq1rz2.html
+    二次请求包含上映时间：https://v.qq.com/detail/m/w7ju7urc1x4w3jc.html
+
+
+芒果tv：
+    默认首页：https://list.mgtv.com/-------------.html?channelId=3
+
+
+    多种内容包含在同一页面，不分散
+
+    二级页面： https://pcweb.api.mgtv.com/video/info?vid=6609060&cid=328192&_support=10000000&callback=jsonp_1589011320795_48038
+        获取上映时间和播放次数， 详情页
+    缺陷：
+        二级页面解析到的播放和二级页面返回json数据不同
+
+
+优  酷：
+    编 码：charset="utf-8"
+
+    页 面：https://list.youku.com/category/show/c_96_r_2020_a_.html?spm=a2hcb.12701310.app.5~5!2~5!2~5~5~DL!4~DD~A!2
+    页 面：https://list.youku.com/category/show/c_96_r_2020_a_.html
+    多种内容包含在同一页面，不分散
+
+
+    数据源：https://list.youku.com/category/page?c=96&r=2020&type=show&p=2 # 电影 c=96
+    数据源：https://list.youku.com/category/page?c=85&r=2020&type=show&p=1 # 综艺 c=85
+
+    缺 陷：上映时间需要去二次页面请求
+          播放次数暂时未知，web端暂时没有找到
+
+    数据源的，json-》videoId
+    二级请求获取上映日期：https://v.youku.com/v_show/id_XNDQ1Njc3MjcxMg==.html?
+
+
+爱奇艺：
+    编 码：charset=utf-8"
+    页 面：https://list.iqiyi.com/www/1/-------------11-1-1-iqiyi--.html
+    多种内容包含在同一页面，不分散
+
+    数据源：https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=&mode=11&pageNum=2&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1
+    https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=&mode=11&pageNum=4&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1
+    https://pcw-api.iqiyi.com/search/recommend/list?channel_id=1&data_type=1&market_release_date_level=2020&mode=24&page_id=1&ret_num=48
+    请求参数：
+        access_play_control_platform=14&
+        channel_id=1&  # 电影，电视剧，综艺分类
+        data_type=2&
+        from=pcw_list&
+        is_album_finished=&
+        is_purchase=&
+        key=&
+        market_release_date_level=2020
+        &mode=11&
+        pageNum=3&  页码
+        pageSize=48& 一页包含内容大小
+        site=iqiyi& # 站点， 还有个全网
+        source_type=&
+        three_category_id=&
+        without_qipu=1
+
+
+
+    电视剧-播放：href="//www.iqiyi.com/v_19ry6kz4uc.html?vfrm=pcw_dianshiju&vfrmblk=B&vfrmrst=fcs_2_p3"
+    电视剧-简介：https://www.iqiyi.com/a_19rrh2eokd.html
+    缺 陷：
+        电影无法查看简介
+        没有播放次数
