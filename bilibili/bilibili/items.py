@@ -16,6 +16,3 @@ class UserInfo(scrapy.Item):
     face = scrapy.Field()
     follower = scrapy.Field()
     following = scrapy.Field()
-    # name = scrapy.Field()
-    # name = scrapy.Field()
-    # name = scrapy.Field()
