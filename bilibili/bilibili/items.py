@@ -8,7 +8,14 @@
 import scrapy
 
 
-class BilibiliItem(scrapy.Item):
-    # define the fields for your item here like:
+class UserInfo(scrapy.Item):
+    mid = scrapy.Field()
+    name = scrapy.Field()
+    level = scrapy.Field()
+    sex = scrapy.Field()
+    face = scrapy.Field()
+    follower = scrapy.Field()
+    following = scrapy.Field()
     # name = scrapy.Field()
-    pass
+    # name = scrapy.Field()
+    # name = scrapy.Field()
