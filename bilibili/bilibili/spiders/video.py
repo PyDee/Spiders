@@ -1,7 +1,7 @@
 """获取用户视频列表"""
 import json
 import scrapy
-from items import VideoItem
+from ..items import VideoItem
 
 
 class VideoSpider(scrapy.Spider):

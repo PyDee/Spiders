@@ -32,3 +32,16 @@ class VideoItem(scrapy.Item):
     title = scrapy.Field()  # 视频标题
     created = scrapy.Field()  # 视频上传时间
     video_length = scrapy.Field()  # 视频时长
+
+
+class CommentItem(scrapy.Item):
+    """视频评论信息"""
+    comment_msg = scrapy.Field()
+    comment_user = scrapy.Field()
+    comment_user_mid = scrapy.Field()
+    comment_id = scrapy.Field()
+    comment_root = scrapy.Field()
+    comment_parent = scrapy.Field()
+    comment_like = scrapy.Field()
+    # comment_text = scrapy.Field()
+    # comment_text = scrapy.Field()

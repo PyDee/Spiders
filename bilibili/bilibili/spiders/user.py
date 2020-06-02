@@ -1,7 +1,7 @@
 import scrapy
 import time
 import json
-from items import UserInfo
+from ..items import UserInfo
 
 
 class UserSpider(scrapy.Spider):
