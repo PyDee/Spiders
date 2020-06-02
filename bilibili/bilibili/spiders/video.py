@@ -1,7 +1,7 @@
 """获取用户视频列表"""
 import json
 import scrapy
-from ..items import VideosItem
+from items import VideoItem
 
 
 class VideoSpider(scrapy.Spider):
@@ -58,3 +58,4 @@ class VideoSpider(scrapy.Spider):
                     # "is_pay": 0,
                     # "is_union_video": 0
                     # """
+# todo 将视频id或者评论url放到start_urls 中，开启comment的爬虫
