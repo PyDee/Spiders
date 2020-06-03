@@ -94,3 +94,6 @@ ITEM_PIPELINES = {
 COMMANDS_MODULE = 'bilibili.command'
 
 proxy_url = 'http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_api_url&packid=0&fa=0&groupid=0&fetch_key=&time=100&qty=10&port=1&format=json&ss=5&css=&dt=0&pro=&city=&usertype=4'
+
+MONGO_HOST = '127.0.0.1'
+MONGO_PORT = 27017

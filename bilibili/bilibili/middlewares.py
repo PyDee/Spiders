@@ -67,7 +67,7 @@ class ProxiesMiddleware:
     def process_response(self, request, response, spider):
         # 因为遇到过那种返回状态码是200但是是一个被反扒的界面，界面固定都是小于3000字符
         # if len(response.text) < 3000 or response.status in [403, 400, 405, 301, 302, 418]:
-        if response.status in [403, 400, 405, 301, 302, 418]:
+        if response.status in [403, 400, 405, 301, 302, 402, 418]:
             spider.logger.info("[此代理报错]   {}".format(self.proxy))
             # rm_proxy(self.proxy)
             # while True:
