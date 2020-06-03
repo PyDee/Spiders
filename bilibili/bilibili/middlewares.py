@@ -1,7 +1,7 @@
 import json
 import random
 import requests
-import redis
+import time
 from twisted.internet.error import TimeoutError, DNSLookupError, ConnectionRefusedError, ConnectionDone, ConnectError, \
     ConnectionLost, TCPTimedOutError
 from scrapy.core.downloader.handlers.http11 import TunnelError
@@ -32,13 +32,13 @@ class RandomUserAgentMiddleware(object):
 
 def random_proxy():
     """获取一个随机代理"""
-    url = proxy_url
-    result = json.loads(requests.get(url).text)
+    response = requests.get(proxy_url)
+    response = response.text
+    result = json.loads(response)
     proxy_list = result.get('data')
     if proxy_list is None:
         random_proxy()
     proxy_count = len(proxy_list)
-
     num = random.randint(0, proxy_count)
     ip = proxy_list[num].get('IP')
     port = proxy_list[num].get('Port')
