@@ -1,0 +1,9 @@
+scrapy_redi
+pymongo
+Scrapy
+redis
+lxml
+scrapy-redis-bloomfilter
+requests
+tqdm
+fake_useragent
