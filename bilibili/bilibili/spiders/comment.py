@@ -1,14 +1,16 @@
 import scrapy
 import json
+from scrapy_redis.spiders import RedisSpider
 from ..items import CommentItem
 
 
-class CommentSpider(scrapy.Spider):
+class CommentSpider(RedisSpider):
+    """
+    start_urls = ['https://api.bilibili.com/x/v2/reply?jsonp=jsonp&pn=1&type=1&oid=370937646&sort=2', ]
+    """
     name = 'comment'
     allowed_domains = ['api.bilibili.com']
-    start_urls = [
-        'https://api.bilibili.com/x/v2/reply?jsonp=jsonp&pn=1&type=1&oid=370937646&sort=2',
-    ]
+    redis_key = "bili_comment:start_urls"
 
     def parse(self, response):
         ret_dict = json.loads(response.text)

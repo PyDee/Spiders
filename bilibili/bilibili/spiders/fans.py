@@ -1,12 +1,15 @@
 import json
 import scrapy
+from scrapy_redis.spiders import RedisSpider
 
 
-class FansSpider(scrapy.Spider):
+class FansSpider(RedisSpider):
+    """
+    start_urls = ['https://api.bilibili.com/x/relation/followers?vmid=8170242&pn=1&ps=20&order=desc&jsonp=jsonp']
+    """
     name = 'fans'
     allowed_domains = ['api.bilibili.com']
-    start_urls = ['https://api.bilibili.com/x/relation/followers?vmid=8170242&pn=1&ps=20&order=desc&jsonp=jsonp']
-
+    redis_key = 'bili_fans:start_urls'
     user_url = 'https://api.bilibili.com/x/space/acc/info?mid={}&jsonp=jsonp'
 
     def parse(self, response):

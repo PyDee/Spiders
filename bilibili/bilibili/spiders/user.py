@@ -1,21 +1,18 @@
 import scrapy
 import time
 import json
+from scrapy_redis.spiders import RedisSpider
 from ..items import UserInfo
 
 
-class UserSpider(scrapy.Spider):
+class UserSpider(RedisSpider):
+    """
+     start_urls = ['https://api.bilibili.com/x/space/acc/info?mid=2217069&jsonp=jsonp']
+    """
     name = 'user'
     allowed_domains = ['space.bilibili.com', 'api.bilibili.com']
-    start_urls = ['https://api.bilibili.com/x/space/acc/info?mid=2217069&jsonp=jsonp']
+    redis_key = "bili_user:start_urls"
     follow_info_url = 'https://api.bilibili.com/x/relation/stat?vmid={}&jsonp=jsonp'
-
-    @classmethod
-    def datetime_to_timestamp_in_milliseconds(cls, d):
-        def current_milli_time():
-            return int(round(time.time() * 1000))
-
-        return current_milli_time()
 
     def parse(self, response):
         """
