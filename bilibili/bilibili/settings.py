@@ -98,6 +98,9 @@ proxy_url = 'http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_
 MONGO_HOST = '127.0.0.1'
 MONGO_PORT = 27017
 
+REDIS_HOST = "127.0.0.1"
+REDIS_PORT = 6379
+
 # 配置scrapy-redis调度器
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # 配置url去重
