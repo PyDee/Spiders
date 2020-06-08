@@ -12,7 +12,6 @@ class UserSpider(RedisSpider):
     name = 'user'
     allowed_domains = ['space.bilibili.com', 'api.bilibili.com']
     redis_key = "bili_user:start_urls"
-    follow_info_url = 'https://api.bilibili.com/x/relation/stat?vmid={}&jsonp=jsonp'
 
     def parse(self, response):
         """
