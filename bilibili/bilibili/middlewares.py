@@ -52,7 +52,11 @@ class ProxiesMiddleware:
                       IOError, TunnelError)
 
     def __init__(self):
-        self.proxy = random_proxy()  # 随机获取一个代理方法
+        try:
+            self.proxy = random_proxy()  # 随机获取一个代理方法
+        except:
+            self.proxy = random_proxy()  # 随机获取一个代理方法
+
         self.count = 0
 
     def process_request(self, request, spider):
@@ -67,10 +71,7 @@ class ProxiesMiddleware:
         # if len(response.text) < 3000 or response.status in [403, 400, 405, 301, 302, 418]:
         if response.status in [403, 400, 405, 301, 302, 402, 418]:
             spider.logger.info("[此代理报错]   {}".format(self.proxy))
-            # rm_proxy(self.proxy)
-            # while True:
             new_proxy = random_proxy()
-            # if new_proxy not in select_proxy_list():
             self.proxy = new_proxy
             spider.logger.info("[更的的新代理为]   {}".format(self.proxy))
             # break
@@ -85,13 +86,9 @@ class ProxiesMiddleware:
             # 在日志中打印异常类型
             spider.logger.info("[Got exception]   {}".format(exception))
             spider.logger.info("[需要更换代理重试]   {}".format(self.proxy))
-            # rm_proxy(self.proxy)
-            # while True:
             new_proxy = random_proxy()
-            # if new_proxy not in select_proxy_list():
             self.proxy = new_proxy
             spider.logger.info("[更换后的代理为]   {}".format(self.proxy))
-            # break
             new_request = request.copy()
             new_request_l = new_request.replace(url=request.url)
             return new_request_l

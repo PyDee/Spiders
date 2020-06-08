@@ -8,16 +8,13 @@ class BiLiBiLiPipeline(object):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client['bili']
         self.User = db["user"]
-        self.Video = db["video"]
-        self.Comment = db["comment"]
+        self.Focus = db["focus"]
 
     def process_item(self, item, spider):
-        if spider.name == 'comment':
-            self.insert_item(self.Comment, item)
-        elif spider.name == 'user':
+        if spider.name == 'user':
             self.insert_item(self.User, item)
-        elif spider.name == 'video':
-            self.insert_item(self.Video, item)
+        elif spider.name == 'focus':
+            self.insert_item(self.Focus, item)
         return item
 
     @staticmethod

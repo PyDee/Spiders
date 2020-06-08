@@ -23,6 +23,16 @@ class UserInfo(scrapy.Item):
     video_count = scrapy.Field()  # 点赞数
 
 
+class UserFocus(scrapy.Item):
+    user_id = scrapy.Field()  # 用户id
+    focus_id = scrapy.Field()  # 用户关注的id
+    focus_face = scrapy.Field()  # 用户关注的id
+    focus_fans = scrapy.Field()  # 关注者的粉丝
+    focus_focus = scrapy.Field()  # 关注者的关注
+    focus_name = scrapy.Field()  # 关注者的昵称
+    introduction = scrapy.Field()  # 关注者的昵称
+
+
 class VideoItem(scrapy.Item):
     """用户发布视频列表信息"""
     video_aid = scrapy.Field()  # 评论所需的oid的值

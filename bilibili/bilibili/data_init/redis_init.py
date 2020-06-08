@@ -39,14 +39,13 @@ class RedisDB:
         url = "https://api.bilibili.com/x/space/acc/info?mid={}&jsonp=jsonp"
         self.redis_init('bili_user', url)
 
-    def insert_focus(self, focus):
+    def insert_focus(self):
         """
         用户关注 start_urls 初始化
-        :param focus: 哔哩哔哩中以 following 表示用户关注的人的信息， 其实也是 user_id
         :return:None
         """
         url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=20&order=desc&jsonp=jsonp"
-        self.redis_init('bili_user', url)
+        self.redis_init('bili_focus', url)
 
     def insert_videos(self):
         pass
