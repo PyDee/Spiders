@@ -1,7 +1,7 @@
 import scrapy
 import json
 from scrapy_redis.spiders import RedisSpider
-from ..items import UserInfo
+from items import UserInfo
 
 
 class UserSpider(RedisSpider):

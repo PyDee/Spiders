@@ -8,7 +8,7 @@ from scrapy.core.downloader.handlers.http11 import TunnelError
 from twisted.internet import defer
 from twisted.web.client import ResponseFailed
 from fake_useragent import UserAgent
-from .settings import proxy_url
+from settings import proxy_url
 
 
 class RandomUserAgentMiddleware(object):

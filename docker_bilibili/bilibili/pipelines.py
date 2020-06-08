@@ -1,6 +1,6 @@
 import pymongo
 from pymongo.errors import DuplicateKeyError
-from .settings import MONGO_HOST, MONGO_PORT
+from settings import MONGO_HOST, MONGO_PORT
 
 
 class BiLiBiLiPipeline(object):

@@ -2,7 +2,7 @@ import json
 import scrapy
 from scrapy_redis.spiders import RedisSpider
 
-from ..items import UserFocus
+from items import UserFocus
 
 
 class FocusSpider(RedisSpider):

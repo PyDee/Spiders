@@ -3,8 +3,7 @@ import sys
 import os
 import redis
 
-# from ..settings import REDIS_HOST
-REDIS_HOST = "127.0.0.1"
+REDIS_HOST = "redis"
 
 
 class RedisDB:
@@ -15,7 +14,7 @@ class RedisDB:
     def redis_init(self, spider_name, url):
         for key in self.r.scan_iter(f"{spider_name}*"):
             self.r.delete(key)
-        file_path = os.getcwd() + '\\init.txt'
+        file_path = os.getcwd() + 'init.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
             while True:
@@ -47,20 +46,12 @@ class RedisDB:
         url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=20&order=desc&jsonp=jsonp"
         self.redis_init('bili_focus', url)
 
-    def insert_videos(self):
-        pass
-
-    def insert_comments(self):
-        pass
-
 
 if __name__ == '__main__':
     ori_rei = RedisDB()
     mode = sys.argv[1]
     mode_to_fun = {
         'user': ori_rei.insert_user,
-        'videos': ori_rei.insert_videos,
         'focus': ori_rei.insert_focus,
-        'comments': ori_rei.insert_comments,
     }
     mode_to_fun[mode]()
