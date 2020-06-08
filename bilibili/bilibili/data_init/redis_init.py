@@ -15,7 +15,7 @@ class RedisDB:
     def redis_init(self, spider_name, url):
         for key in self.r.scan_iter(f"{spider_name}*"):
             self.r.delete(key)
-        file_path = os.getcwd() + 'init.txt'
+        file_path = os.getcwd() + '\\init.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
             while True:
@@ -30,14 +30,13 @@ class RedisDB:
                 if count % 10000 == 0:
                     print("execute insert! count is %d" % count)
 
-    def insert_user(self, mid):
+    def insert_user(self):
         """
         用户 start_urls 初始化
         :param mid:哔哩哔哩中表示 user_id 的字段
         :return:None
         """
-        ori_url = "https://api.bilibili.com/x/space/acc/info?mid={}}&jsonp=jsonp"
-        url = ori_url.format(mid)
+        url = "https://api.bilibili.com/x/space/acc/info?mid={}&jsonp=jsonp"
         self.redis_init('bili_user', url)
 
     def insert_focus(self, focus):
@@ -46,8 +45,7 @@ class RedisDB:
         :param focus: 哔哩哔哩中以 following 表示用户关注的人的信息， 其实也是 user_id
         :return:None
         """
-        ori_url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=20&order=desc&jsonp=jsonp"
-        url = ori_url.format(focus)
+        url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=20&order=desc&jsonp=jsonp"
         self.redis_init('bili_user', url)
 
     def insert_videos(self):

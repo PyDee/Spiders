@@ -36,8 +36,6 @@ def random_proxy():
     response = response.text
     result = json.loads(response)
     proxy_list = result.get('data')
-    if proxy_list is None:
-        random_proxy()
     proxy_count = len(proxy_list)
     num = random.randint(0, proxy_count)
     ip = proxy_list[num].get('IP')

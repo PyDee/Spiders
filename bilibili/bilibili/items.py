@@ -13,9 +13,14 @@ class UserInfo(scrapy.Item):
     name = scrapy.Field()  # 用户昵称
     level = scrapy.Field()  # 用户等级
     sex = scrapy.Field()  # 用户性别
+    introduction = scrapy.Field()  # 用户性别
     face = scrapy.Field()  # 用户头图
-    follower = scrapy.Field()  # 用户粉了多少人
+    focus = scrapy.Field()  # 用户关注了多少人
     following = scrapy.Field()  # 用户有多少粉丝
+    video_play_count = scrapy.Field()  # 视频播放量
+    article_play_count = scrapy.Field()  # 文章阅读量
+    like = scrapy.Field()  # 点赞数
+    video_count = scrapy.Field()  # 点赞数
 
 
 class VideoItem(scrapy.Item):
