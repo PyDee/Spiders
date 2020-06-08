@@ -1,4 +1,4 @@
-import scrapy
+from scrapy.http import Request
 import json
 from scrapy_redis.spiders import RedisSpider
 from items import UserInfo
@@ -36,10 +36,10 @@ class UserSpider(RedisSpider):
                 user_info['level'] = info_dict.get('level')
                 user_info['face'] = info_dict.get('face')
                 response.meta['item'] = user_info
-                yield scrapy.Request(url=self.follow_info_url.format(user_info.get('mid')),
-                                     meta=response.meta,
-                                     callback=self.get_follow_info
-                                     )
+                yield Request(url=self.follow_info_url.format(user_info.get('mid')),
+                              meta=response.meta,
+                              callback=self.get_follow_info
+                              )
 
     def get_follow_info(self, response):
         user_info = response.meta['item']
@@ -51,10 +51,10 @@ class UserSpider(RedisSpider):
                 user_info['following'] = info_dict.get('following')
                 user_info['focus'] = info_dict.get('follower')
                 response.meta['item'] = user_info
-                yield scrapy.Request(url=self.like_play_url.format(user_info.get('mid')),
-                                     meta=response.meta,
-                                     callback=self.get_like_play
-                                     )
+                yield Request(url=self.like_play_url.format(user_info.get('mid')),
+                              meta=response.meta,
+                              callback=self.get_like_play
+                              )
 
     def get_like_play(self, response):
         user_info = response.meta['item']
@@ -67,10 +67,10 @@ class UserSpider(RedisSpider):
                 user_info['article_play_count'] = info_dict.get('article').get('view')
                 user_info['like'] = info_dict.get('likes')
                 response.meta['item'] = user_info
-                yield scrapy.Request(url=self.video_info.format(user_info.get('mid')),
-                                     meta=response.meta,
-                                     callback=self.get_video_count
-                                     )
+                yield Request(url=self.video_info.format(user_info.get('mid')),
+                              meta=response.meta,
+                              callback=self.get_video_count
+                              )
 
     def get_video_count(self, response):
         user_info = response.meta['item']
@@ -80,5 +80,4 @@ class UserSpider(RedisSpider):
             if 'data' in ret_dict.keys():
                 info_dict = ret_dict['data']
                 user_info['video_count'] = info_dict.get('page').get('count')
-                print(user_info)
-                # yield user_info
+                yield user_info

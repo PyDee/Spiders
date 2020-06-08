@@ -1,5 +1,5 @@
 import json
-import scrapy
+from scrapy.http import Request
 from scrapy_redis.spiders import RedisSpider
 
 from items import UserFocus
@@ -26,8 +26,7 @@ class FocusSpider(RedisSpider):
                     page_count = 6 if page_count > 6 else page_count
                     for page in range(2, page_count):
                         page_url = response.url.replace('pn=1', 'pn={}'.format(page))
-                        print(page_url)
-                        yield scrapy.Request(page_url, self.parse, dont_filter=True, meta=response.meta)
+                        yield Request(page_url, self.parse, dont_filter=True, meta=response.meta)
 
                 focus_list = info_dict.get('list')
                 user_id = response.url.strip('https://api.bilibili.com/x/relation/followings?vmid=').split('&')[0]
@@ -38,9 +37,9 @@ class FocusSpider(RedisSpider):
                     focus_info['focus_face'] = focus.get('face')
                     focus_info['introduction'] = focus.get('sign')
                     response.meta['item'] = focus_info
-                    yield scrapy.Request(url=self.follow_info_url.format(focus_info.get('focus_id')),
-                                         meta=response.meta,
-                                         callback=self.get_follow_info)
+                    yield Request(url=self.follow_info_url.format(focus_info.get('focus_id')),
+                                  meta=response.meta,
+                                  callback=self.get_follow_info)
 
     def get_follow_info(self, response):
         focus_info = response.meta['item']

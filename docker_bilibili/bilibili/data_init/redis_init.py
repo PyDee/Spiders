@@ -14,7 +14,7 @@ class RedisDB:
     def redis_init(self, spider_name, url):
         for key in self.r.scan_iter(f"{spider_name}*"):
             self.r.delete(key)
-        file_path = os.getcwd() + 'init.txt'
+        file_path = os.getcwd() + '/init.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
             while True:
