@@ -1,5 +1,4 @@
 import scrapy
-import time
 import json
 from scrapy_redis.spiders import RedisSpider
 from ..items import UserInfo

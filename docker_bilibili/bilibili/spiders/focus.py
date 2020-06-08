@@ -1,7 +1,6 @@
-import scrapy
 import json
+import scrapy
 from scrapy_redis.spiders import RedisSpider
-import re
 
 from ..items import UserFocus
 
@@ -12,8 +11,6 @@ class FocusSpider(RedisSpider):
     redis_key = "bili_focus:start_urls"
     # focus-follow 的接口
     follow_info_url = 'https://api.bilibili.com/x/relation/stat?vmid={}&jsonp=jsonp'
-
-    # r = redis.Redis(host="127.0.0.1")
 
     def parse(self, response):
         ret_dict = json.loads(response.text)
