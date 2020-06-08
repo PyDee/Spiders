@@ -6,45 +6,45 @@ services:
     volumes:
       - ./data/mongo:/data/db
     ports:
-      - 27017:27017
+      - 7001:27017
     container_name: bili-mongo
 
   redis:
     image: redis
     command: redis-server
     ports:
-      - 6379:6379
+      - 7002:6379
     volumes:
       - ./data/redis:/data
     container_name: bili-redis
 
   account:
-    image: bossen/bilibili:v20.06.08
+    image: bossen/bilibili:v20.06.08.1
     volumes:
       - ./bilibili:/app
     depends_on:
-      - mongodb
+      - mongo
       - redis
     stdin_open: true
     tty: true
     container_name: bili-account
 
   bili-user:
-    image: bossen/bilibili:v20.06.08
+    image: bossen/bilibili:v20.06.08.1
     volumes:
       - ./bilibili:/app
     depends_on:
-      - mongodb
+      - mongo
       - redis
     command: python run_spider.py user
     container_name: bili-user
 
   bili-focus:
-    image: bossen/weibospider:v20.06.08
+    image: bossen/weibospider:v20.06.08.1
     volumes:
       - ./bilibili:/app
     depends_on:
-      - mongodb
+      - mongo
       - redis
-    command: python run_spider.py tweet
+    command: python run_spider.py focus
     container_name: bili-focus

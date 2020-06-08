@@ -1,7 +1,7 @@
 BOT_NAME = 'bilibili'
 
-SPIDER_MODULES = ['bilibili.spiders']
-NEWSPIDER_MODULE = 'bilibili.spiders'
+SPIDER_MODULES = ['spiders']
+NEWSPIDER_MODULE = 'spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
