@@ -19,7 +19,7 @@ services:
     container_name: bili-redis
 
   account:
-    image: bossen/bilibili:v20.06.08.1
+    image: bossen/bilibili:v20.06.08
     volumes:
       - ./bilibili:/app
     depends_on:
@@ -30,7 +30,7 @@ services:
     container_name: bili-account
 
   bili-user:
-    image: bossen/bilibili:v20.06.08.1
+    image: bossen/bilibili:v20.06.08
     volumes:
       - ./bilibili:/app
     depends_on:
@@ -40,7 +40,7 @@ services:
     container_name: bili-user
 
   bili-focus:
-    image: bossen/weibospider:v20.06.08.1
+    image: bossen/bilibili:v20.06.08
     volumes:
       - ./bilibili:/app
     depends_on:
