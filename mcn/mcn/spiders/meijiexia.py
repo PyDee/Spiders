@@ -1,8 +1,8 @@
 """
-微博
-小红书
-抖音
-快手
+微博 https://www.meijiexia.com/medias-76-0-0-0_0.html?time=&fans=&price=&pro=&per_page=65
+小红书 https://www.meijiexia.com/medias-425-0-0-0_0.html?time=&fans=&price=&pro=&per_page=41
+抖音 https://www.meijiexia.com/medias-424-0-0-0_0.html?time=&fans=&price=&pro=&per_page=5
+快手 https://www.meijiexia.com/medias-605-0-0-0_0.html?time=&fans=&price=&pro=&per_page=9
 """
 import scrapy
 
