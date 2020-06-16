@@ -44,7 +44,7 @@ class RedisDB:
         用户关注 start_urls 初始化
         :return:None
         """
-        url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=20&order=desc&jsonp=jsonp"
+        url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=50&order=desc&jsonp=jsonp"
         self.redis_init('bili_focus', url)
 
     def insert_videos(self):
