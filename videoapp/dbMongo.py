@@ -44,13 +44,13 @@ class ReadMongo:
 
     def main(self):
         platforms = [
-            # ['mg', 'play_count'],
-            # ['youku', 'heat'],
-            # ['iqiyi', 'hot'],
+            ['mg', 'play_count'],
+            ['youku', 'heat'],
+            ['iqiyi', 'hot'],
             ['tencent', 'play_count'],
         ]
         dates = [
-            '2020-02', '2020-03'
+            '2020-04', '2020-05'
         ]
 
         classifys = ['movie', 'doco', 'cartoon', 'tv', 'variety']
@@ -64,16 +64,17 @@ class ReadMongo:
                     except:
                         continue
 
-    def read_2_excel(self):
-        clint = self.client['video']['tencent']
-        data = clint.find()
-        data = list(data)  # 在转换成列表时，可以根据情况只过滤出需要的数据。(for遍历过滤)
-        df = pd.DataFrame(data)  # 读取整张表 (DataFrame)
-        df.to_excel(r'.\excels\tencent_all.xlsx')
+    def read_all_to_excel(self):
+        for item in ['youku', 'mg', 'iqiyi', 'tencent']:
+            clint = self.client['video'][item]
+            data = clint.find()
+            data = list(data)  # 在转换成列表时，可以根据情况只过滤出需要的数据。(for遍历过滤)
+            df = pd.DataFrame(data)  # 读取整张表 (DataFrame)
+            df.to_excel(r'.\excels\{}_all.xlsx'.format(item))
 
 
 if __name__ == '__main__':
     """db.mg.find({"classify":"doco","issued_date":{"$regex":"2019-01"}})"""
     db = ReadMongo()
-    db.read_2_excel()
+    db.read_all_to_excel()
     db.main()
