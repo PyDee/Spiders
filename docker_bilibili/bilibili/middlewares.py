@@ -78,12 +78,12 @@ class ProxiesMiddleware:
                       IOError, TunnelError)
 
     def __init__(self):
-        self.proxy = redom_proxy()  # 随机获取一个代理方法
+        self.proxy = random_proxy()  # 随机获取一个代理方法
         self.count = 0
 
     def process_request(self, request, spider):
         if self.count % 500 == 0:
-            self.proxy = redom_proxy()
+            self.proxy = random_proxy()
         self.count += 1
         spider.logger.info("[proxy]   {}".format(self.proxy))
         request.meta["proxy"] = self.proxy
@@ -93,7 +93,7 @@ class ProxiesMiddleware:
         # if len(response.text) < 3000 or response.status in [403, 400, 405, 301, 302, 418]:
         if response.status in [403, 400, 405, 301, 302, 418]:
             spider.logger.info("[此代理报错]   {}".format(self.proxy))
-            new_proxy = redom_proxy()
+            new_proxy = random_proxy()
             self.proxy = new_proxy
             spider.logger.info("[更的的新代理为]   {}".format(self.proxy))
             new_request = request.copy()
@@ -107,7 +107,7 @@ class ProxiesMiddleware:
             # 在日志中打印异常类型
             spider.logger.info("[Got exception]   {}".format(exception))
             spider.logger.info("[需要更换代理重试]   {}".format(self.proxy))
-            new_proxy = redom_proxy()
+            new_proxy = random_proxy()
             self.proxy = new_proxy
             spider.logger.info("[更换后的代理为]   {}".format(self.proxy))
             new_request = request.copy()
