@@ -32,17 +32,20 @@ class RandomUserAgentMiddleware(object):
 
 def random_proxy():
     """获取一个随机代理"""
-    response = requests.get(proxy_url)
-    response = response.text
-    result = json.loads(response)
-    proxy_list = result.get('data')
-    proxy_count = len(proxy_list)
-    num = random.randint(0, proxy_count)
-    ip = proxy_list[num].get('IP')
-    port = proxy_list[num].get('Port')
-    proxy = 'https://{}:{}'.format(ip, port)
+    try:
+        response = requests.get(proxy_url)
+        response = response.text
+        result = json.loads(response)
+        proxy_list = result.get('data')
+        proxy_count = len(proxy_list)
+        num = random.randint(0, proxy_count)
+        ip = proxy_list[num].get('IP')
+        port = proxy_list[num].get('Port')
+        proxy = 'https://{}:{}'.format(ip, port)
 
-    return proxy
+        return proxy
+    except:
+        pass
 
 
 class ProxiesMiddleware:
@@ -60,7 +63,7 @@ class ProxiesMiddleware:
         self.count = 0
 
     def process_request(self, request, spider):
-        if self.count % 500 == 0:
+        if self.count % 500 == 0 and self.count != 0:
             self.proxy = random_proxy()
         self.count += 1
         spider.logger.info("[proxy]   {}".format(self.proxy))
