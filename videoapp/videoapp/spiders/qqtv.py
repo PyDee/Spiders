@@ -35,6 +35,8 @@ class QqtvSpider(scrapy.Spider):
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=tv&listpage=2&offset=150&pagesize=30&sort=18&year=50',
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=tv&listpage=2&offset=180&pagesize=30&sort=18&year=50',
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=tv&listpage=2&offset=210&pagesize=30&sort=18&year=50',
+        'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=tv&listpage=2&offset=240&pagesize=30&sort=18&year=50',
+        'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=tv&listpage=2&offset=270&pagesize=30&sort=18&year=50',
 
         # 动漫
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=cartoon&iyear=50&listpage=2&offset=0&pagesize=30&sort=18',
@@ -42,6 +44,7 @@ class QqtvSpider(scrapy.Spider):
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=cartoon&iyear=50&listpage=2&offset=60&pagesize=30&sort=18',
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=cartoon&iyear=50&listpage=2&offset=90&pagesize=30&sort=18',
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=cartoon&iyear=50&listpage=2&offset=120&pagesize=30&sort=18',
+        'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=cartoon&iyear=50&listpage=2&offset=150&pagesize=30&sort=18',
 
         # 综艺
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=variety&iyear=50&listpage=2&offset=0&pagesize=30&sort=4',
@@ -173,6 +176,7 @@ class QqtvSpider(scrapy.Spider):
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=1&channel=doco&listpage=2&offset=3510&pagesize=30&sort=18',
         'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=1&channel=doco&listpage=2&offset=3540&pagesize=30&sort=18',
     ]
+
     # start_urls = [
     #     'https://v.qq.com/x/bu/pagesheet/list?_all=1&append=0&channel=variety&iyear=50&listpage=2&offset=90&pagesize=30&sort=4',
     # ]

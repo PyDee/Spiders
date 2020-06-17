@@ -24,6 +24,7 @@ class YoukuSpider(scrapy.Spider):
         'https://list.youku.com/category/page?c=97&r=2020&type=show&p=1',
         'https://list.youku.com/category/page?c=97&r=2020&type=show&p=2',
         'https://list.youku.com/category/page?c=97&r=2020&type=show&p=3',
+        'https://list.youku.com/category/page?c=97&r=2020&type=show&p=4',
 
         # 综艺
         'https://list.youku.com/category/page?c=85&r=2020&type=show&p=1',

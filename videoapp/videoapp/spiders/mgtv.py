@@ -9,6 +9,7 @@ from scrapy import Request
 
 from ..items import MgItem
 
+
 # logger = logging.getLogger()
 # logger.setLevel(logging.INFO)  # Log等级总开关
 # rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
@@ -137,6 +138,7 @@ class MgtvSpider(scrapy.Spider):
         'https://list.mgtv.com/3/a1--------a1-c2-35--a1-.html?channelId=3',
         'https://list.mgtv.com/3/a1--------a1-c2-36--a1-.html?channelId=3',
         'https://list.mgtv.com/3/a1--------a1-c2-37--a1-.html?channelId=3',
+        'https://list.mgtv.com/3/a1--------a1-c2-38--a1-.html?channelId=3',
         # 动漫
         'https://list.mgtv.com/50/a1-a1-------a1-c2-1---.html?channelId=50',
         'https://list.mgtv.com/50/a1-a1-------a1-c2-2---.html?channelId=50',

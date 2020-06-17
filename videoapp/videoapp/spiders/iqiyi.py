@@ -34,15 +34,18 @@ class IqiyiSpider(scrapy.Spider):
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=2&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=3&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=4&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=1&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=5&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
 
         # 电视剧
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=2&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=1&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=2&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=2&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=2&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=3&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
 
         # 动漫
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=4&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=1&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=4&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=2&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=4&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=3&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=4&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=4&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
 
         # 综艺
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=1&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
@@ -59,6 +62,9 @@ class IqiyiSpider(scrapy.Spider):
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=12&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=13&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=14&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=15&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=16&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=6&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=17&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
 
         # 纪录片
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=3&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=1&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
@@ -66,6 +72,7 @@ class IqiyiSpider(scrapy.Spider):
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=3&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=3&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=3&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=4&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
         'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=3&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=5&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
+        'https://pcw-api.iqiyi.com/search/video/videolists?access_play_control_platform=14&channel_id=3&data_type=1&from=pcw_list&is_album_finished=&is_purchase=&key=&market_release_date_level=2020&mode=24&pageNum=6&pageSize=48&site=iqiyi&source_type=&three_category_id=&without_qipu=1',
 
     ]
 
