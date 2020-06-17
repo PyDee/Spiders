@@ -53,19 +53,22 @@ class RandomUserAgentMiddleware(object):
         request.headers['User-Agent'] = user_agent
 
 
-def redom_proxy():
+def random_proxy():
     """获取一个随机代理"""
-    url = proxy_url
-    result = json.loads(requests.get(url).text)
-    proxy_list = result.get('data')
-    proxy_count = len(proxy_list)
+    try:
+        response = requests.get(proxy_url)
+        response = response.text
+        result = json.loads(response)
+        proxy_list = result.get('data')
+        proxy_count = len(proxy_list)
+        num = random.randint(0, proxy_count)
+        ip = proxy_list[num].get('IP')
+        port = proxy_list[num].get('Port')
+        proxy = 'https://{}:{}'.format(ip, port)
 
-    num = random.randint(0, proxy_count)
-    ip = proxy_list[num].get('IP')
-    port = proxy_list[num].get('Port')
-    proxy = 'https://{}:{}'.format(ip, port)
-
-    return proxy
+        return proxy
+    except:
+        pass
 
 
 class ProxiesMiddleware:
