@@ -1,14 +1,14 @@
 # Spiders ReadMe
 - videoapp
-    - [videoapp项目说明](./docs/videoapp.md)
+    - [videoapp项目说明](.github/videoapp.md)
 - bilibili
-    - [bilibili项目说明](./docs/bilibili)
+    - [bilibili项目说明](.github/bilibili)
 - docker_bilibili
-   - [docker_bilibili项目说明](./docs/docker-bilibili)
+   - [docker_bilibili项目说明](.github/docker-bilibili)
 - scripts
-   - [scripts文件说明](./docs/scripts)
+   - [scripts文件说明](.github/scripts)
 - jsparse
-   - [jsparse文件说明](./docs/jsparse)
+   - [jsparse文件说明](.github/jsparse)
 
 
 ### 同时执行所有 spider 的实现
