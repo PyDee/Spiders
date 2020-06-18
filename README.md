@@ -2,13 +2,13 @@
 - videoapp
     - [videoapp项目说明](./.github/videoapp.md)
 - bilibili
-    - [bilibili项目说明](./.github/bilibili)
+    - [bilibili项目说明](.github/bilibili.md)
 - docker_bilibili
-   - [docker_bilibili项目说明](./.github/docker-bilibili)
+   - [docker_bilibili项目说明](.github/docker-bilibili.md)
 - scripts
-   - [scripts文件说明](./.github/scripts)
+   - [scripts文件说明](.github/scripts.md)
 - jsparse
-   - [jsparse文件说明](./.github/jsparse)
+   - [jsparse文件说明](.github/jsparse.md)
 
 
 ### 同时执行所有 spider 的实现

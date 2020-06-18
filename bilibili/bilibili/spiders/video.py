@@ -10,7 +10,7 @@ class VideoSpider(RedisSpider):
     start_urls = ['https://api.bilibili.com/x/space/arc/search?mid=8170242&pn=1&ps=25&jsonp=jsonp']
     """
     name = 'videos'
-    allowed_domains = ['api.bilibili.com']
+    allowed_domains = ['api.bilibili.md.com']
     redis_key = 'bili_videos:start_urls'
     # 需要视频的id
     comment_URL = 'https://api.bilibili.com/x/v2/reply?pn=1&type=1&oid={}&sort=2'

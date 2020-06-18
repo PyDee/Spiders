@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for videoapp project
+# Scrapy settings for videoapp.md project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,13 +9,13 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'videoapp'
+BOT_NAME = 'videoapp.md'
 
-SPIDER_MODULES = ['videoapp.spiders']
-NEWSPIDER_MODULE = 'videoapp.spiders'
+SPIDER_MODULES = ['videoapp.md.spiders']
+NEWSPIDER_MODULE = 'videoapp.md.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'videoapp (+http://www.yourdomain.com)'
+# USER_AGENT = 'videoapp.md (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -46,13 +46,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'videoapp.middlewares.VideoappSpiderMiddleware': 543,
+#    'videoapp.md.middlewares.VideoappSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'videoapp.middlewares.VideoappDownloaderMiddleware': 543,
+#    'videoapp.md.middlewares.VideoappDownloaderMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -64,7 +64,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'videoapp.pipelines.VideoappPipeline': 300,
+    'videoapp.md.pipelines.VideoappPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -96,7 +96,7 @@ MONGO_HOST = '127.0.0.1'
 MONGO_PORT = 27017
 
 # 执行全部spider
-COMMANDS_MODULE = 'videoapp.commands'
+COMMANDS_MODULE = 'videoapp.md.commands'
 
 # 设置延迟
 # DOWNLOAD_DELAY = 1

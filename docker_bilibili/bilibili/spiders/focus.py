@@ -5,7 +5,7 @@ from scrapy_redis.spiders import RedisSpider
 
 class FocusSpider(RedisSpider):
     name = 'focus'
-    allowed_domains = ['api.bilibili.com']
+    allowed_domains = ['api.bilibili.md.com']
     redis_key = "bili_focus:start_urls"
     second_page_url = 'https://api.bilibili.com/x/relation/followings?vmid={}&pn=2&ps=50&order=desc&jsonp=jsonp'
     # 获取用户关注数，粉丝数 的接口

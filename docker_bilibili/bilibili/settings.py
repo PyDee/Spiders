@@ -1,4 +1,4 @@
-BOT_NAME = 'bilibili'
+BOT_NAME = 'bilibili.md'
 
 SPIDER_MODULES = ['spiders']
 NEWSPIDER_MODULE = 'spiders'

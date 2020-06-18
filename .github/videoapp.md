@@ -26,5 +26,5 @@
 ### 数据导出
     dbMongo.py : 支持将数据保存为 excel
         - main 根据指定年月将数据保存到 excel 的不同 sheet 中
-        - run 分渠道将所有数据导出为 excel 
+        - run 分渠道将所有数据导出为 excel
     

@@ -21,7 +21,7 @@ services:
   account:
     image: bossen/bilibili:v20.06.16
     volumes:
-      - ./bilibili:/app
+      - ./bilibili.md:/app
     depends_on:
       - mongo
       - redis
@@ -32,7 +32,7 @@ services:
   bili-user:
     image: bossen/bilibili:v20.06.16
     volumes:
-      - ./bilibili:/app
+      - ./bilibili.md:/app
     depends_on:
       - mongo
       - redis
@@ -42,7 +42,7 @@ services:
   bili-focus:
     image: bossen/bilibili:v20.06.16
     volumes:
-      - ./bilibili:/app
+      - ./bilibili.md:/app
     depends_on:
       - mongo
       - redis

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for bilibili project
+# Scrapy settings for bilibili.md project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,13 +9,13 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'bilibili'
+BOT_NAME = 'bilibili.md'
 
-SPIDER_MODULES = ['bilibili.spiders']
-NEWSPIDER_MODULE = 'bilibili.spiders'
+SPIDER_MODULES = ['bilibili.md.spiders']
+NEWSPIDER_MODULE = 'bilibili.md.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'bilibili (+http://www.yourdomain.com)'
+# USER_AGENT = 'bilibili.md (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -46,15 +46,15 @@ DOWNLOAD_DELAY = 0.01
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'bilibili.middlewares.BilibiliSpiderMiddleware': 543,
+#    'bilibili.md.middlewares.BilibiliSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'bilibili.middlewares.ProxiesMiddleware': 100,
+    'bilibili.md.middlewares.ProxiesMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
-    'bilibili.middlewares.RandomUserAgentMiddleware': 543,
+    'bilibili.md.middlewares.RandomUserAgentMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -66,7 +66,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'bilibili.pipelines.BiLiBiLiPipeline': 300,
+    'bilibili.md.pipelines.BiLiBiLiPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,7 +91,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-COMMANDS_MODULE = 'bilibili.command'
+COMMANDS_MODULE = 'bilibili.md.command'
 
 proxy_url = 'http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_api_url&packid=0&fa=0&groupid=0&fetch_key=&time=100&qty=10&port=1&format=json&ss=5&css=&dt=0&pro=&city=&usertype=4'
 
