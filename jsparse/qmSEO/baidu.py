@@ -5,6 +5,7 @@ import requests
 
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver import DesiredCapabilities
 
 
 class BaiDu:
@@ -24,7 +25,13 @@ class BaiDu:
         chrome_options.add_argument('--disable-infobars')
         chrome_options.add_argument('--user-agent={}'.format(useragent))
         chrome_options.add_argument('--proxy-server=http://{}:{}'.format(ip, port))
-        driver = webdriver.Chrome('..\\chromedriver.exe', chrome_options=chrome_options)
+        # driver = webdriver.Chrome('..\\chromedriver.exe', chrome_options=chrome_options)
+        driver = webdriver.Remote(
+            command_executor="http://127.0.0.1:4444/wd/hub",
+            desired_capabilities=DesiredCapabilities.CHROME,
+            options=chrome_options,
+
+        )
         return driver
 
     def get_home_page(self, word):
@@ -33,23 +40,18 @@ class BaiDu:
         self.driver.find_element_by_id('su').click()
         time.sleep(10)
         time.sleep(10)
-
+        # print(self.driver.page_source)
         self.driver.quit()
 
     @staticmethod
     def random_return_word():
-        pre = "questmobile "
+        pre = "QuestMobile "
         words = [
-            '新媒版',
+            '新媒版'
             '专业版',
-            '小程序',
-            '黑马榜',
-            '极速版',
-            '营销版',
-            '广告版',
-            '渠道版',
-            '跨屏版',
-            '随身版',
+            '数据产品',
+            '数据报告',
+            'APP增长',
         ]
         word = random.choice(words)
         return pre + word
