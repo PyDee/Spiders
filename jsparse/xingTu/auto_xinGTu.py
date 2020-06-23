@@ -31,7 +31,7 @@ class XinGTu:
         self.db = DBMongo()
         chrome_options = ChromeOptions()
         chrome_options.add_argument('--headless')
-        self.driver = webdriver.Chrome('chromedriver.exe')
+        self.driver = webdriver.Chrome('..\\chromedriver.exe')
         self.driver.maximize_window()
         self.home_url = 'https://starsp.toutiao.com'
         self.mcn_url = 'https://starsp.toutiao.com/ad#/market/mcn'
