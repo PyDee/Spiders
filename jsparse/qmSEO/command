@@ -1,2 +1,3 @@
  运行一个 selenium 容器
  docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
+ docker run -d -p 4444:4444 --name selenium selenium/standalone-chrome
