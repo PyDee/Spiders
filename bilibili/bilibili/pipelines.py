@@ -9,8 +9,26 @@ class BiLiBiLiPipeline(object):
         db = client['bili']
         self.User = db["user"]
         self.Focus = db["focus"]
+        self.Relationship = db["relation"]
 
     def process_item(self, item, spider):
+        if spider.name == 'user':
+            self.insert_item(self.User, item)
+        if spider.name == 'relationship':
+            self.insert_item(self.Relationship, item)
+        if spider.name == 'focus':
+            self.insert_item(self.Focus, item)
+
+    @staticmethod
+    def insert_item(collection, item):
+        try:
+            collection.insert(dict(item))
+        except DuplicateKeyError:
+            pass
+
+    # 用于更新对象列表存储格式数据
+    # {user_id:1,focus_list:[]}
+    def process_item_stop(self, item, spider):
         if spider.name == 'user':
             self.insert_item(self.User, item)
         elif spider.name == 'focus':
@@ -38,10 +56,3 @@ class BiLiBiLiPipeline(object):
             print("更新成功")
         except Exception as e:
             print("更新失败:{}".format(e))
-
-    @staticmethod
-    def insert_item(collection, item):
-        try:
-            collection.insert(dict(item))
-        except DuplicateKeyError:
-            pass

@@ -13,8 +13,6 @@ class RedisDB:
         pass
 
     def redis_init(self, spider_name, url):
-        for key in self.r.scan_iter(f"{spider_name}*"):
-            self.r.delete(key)
         file_path = os.getcwd() + '\\init.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
@@ -36,22 +34,24 @@ class RedisDB:
         :param mid:哔哩哔哩中表示 user_id 的字段
         :return:None
         """
+        spider_name = 'bili_user'
+        for key in self.r.scan_iter(f"{spider_name}*"):
+            self.r.delete(key)
         url = "https://api.bilibili.com/x/space/acc/info?mid={}&jsonp=jsonp"
-        self.redis_init('bili_user', url)
+        self.redis_init(spider_name, url)
 
-    def insert_focus(self):
+    def insert_relation(self):
         """
         用户关注 start_urls 初始化
         :return:None
         """
+        spider_name = 'bili_relation'
+        for key in self.r.scan_iter(f"{spider_name}*"):
+            self.r.delete(key)
         url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=1&ps=50&order=desc&jsonp=jsonp"
-        self.redis_init('bili_focus', url)
-
-    def insert_videos(self):
-        pass
-
-    def insert_comments(self):
-        pass
+        self.redis_init(spider_name, url)
+        url = "https://api.bilibili.com/x/relation/followings?vmid={}&pn=2&ps=50&order=desc&jsonp=jsonp"
+        self.redis_init(spider_name, url)
 
 
 if __name__ == '__main__':
@@ -59,8 +59,6 @@ if __name__ == '__main__':
     mode = sys.argv[1]
     mode_to_fun = {
         'user': ori_rei.insert_user,
-        'videos': ori_rei.insert_videos,
-        'focus': ori_rei.insert_focus,
-        'comments': ori_rei.insert_comments,
+        'relation': ori_rei.insert_relation,
     }
     mode_to_fun[mode]()
