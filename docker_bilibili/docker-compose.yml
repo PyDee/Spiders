@@ -19,7 +19,7 @@ services:
     container_name: bili-redis
 
   account:
-    image: bossen/bilibili:v20.06.16
+    image: bossen/bilibili:v20.06.24
     volumes:
       - ./bilibili.md:/app
     depends_on:
@@ -30,7 +30,7 @@ services:
     container_name: bili-account
 
   bili-user:
-    image: bossen/bilibili:v20.06.16
+    image: bossen/bilibili:v20.06.24
     volumes:
       - ./bilibili.md:/app
     depends_on:
@@ -39,8 +39,18 @@ services:
     command: python run_spider.py user
     container_name: bili-user
 
+  bili-relation:
+    image: bossen/bilibili:v20.06.24
+    volumes:
+      - ./bilibili.md:/app
+    depends_on:
+      - mongo
+      - redis
+    command: python run_spider.py relation
+    container_name: bili-relation
+
   bili-focus:
-    image: bossen/bilibili:v20.06.16
+    image: bossen/bilibili:v20.06.24
     volumes:
       - ./bilibili.md:/app
     depends_on:
