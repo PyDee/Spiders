@@ -19,7 +19,8 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 ITEM_PIPELINES = {
-    'pipelines.BiLiBiLiPipeline': 300,
+    # 'pipelines.BiLiBiLiPipeline': 300,
+    'pipelines.BiLiPipeline': 300,
     'scrapy_redis.pipelines.RedisPipeline': 301,
 }
 

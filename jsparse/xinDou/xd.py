@@ -73,23 +73,11 @@ class MongoDB:
 class XinDou:
     def __init__(self):
         self.rd = RedisDB()
-        self.cookie_list = [
-            [
-                'Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1592817320; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1592817320; token=0C85278F86C24A41BBCEE84DCEBB537A',
-                0],
-            [
-                'token=8627B57D03FF457EA76105FA0853A3E7; Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1592817221,1592817262; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1592817262',
-                0],
-            [
-                "Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1592558729; token=B283ED1F379E4EB9BF62094238C902B8; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1592808507",
-                0],
-
-        ]
         self.md = MongoDB()
-        self.mcn_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/search?xyz=c2e5b1245c5fa2e978d3d7c7d540184f&nonce=a2d3985c0"
-        self.author_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/userType?xyz=e406951214494589e3ca293f899c082b&nonce=487afeb30"
+        self.mcn_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/search?xyz=85fb585fa423a62e6528106fbf8185fd&nonce=fb1c58647"
+        self.author_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/userType?xyz=8fbd365b0ec608a2222fc8dfc2403c13&nonce=2568f0cde"
         self.headers = {
-            "cookie": "Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1591672412,1591684073,1592469229; token=3BDB535301494FAD9B75078543A06B0C; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1592480509",
+            "cookie": "Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1591672412,1591684073,1592469229,1593310236; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1593310236; token=039CCD6AFB5D4DAABCE37E78B0E2A048",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36",
         }
         self.current_cookie = 0
@@ -142,8 +130,6 @@ class XinDou:
 
     def get_mcn(self, page):
         """获取机构信息"""
-        self.headers['cookie'] = self.cookie_list[0][0]
-
         data = self.create_mcn_body(page)
         result = self.get_response(self.mcn_url, self.headers, data)
         response = json.loads(result)
@@ -164,14 +150,14 @@ class XinDou:
 
     def get_author(self, mcn_id, start=1):
         """获取达人信息"""
-        for index, cookie in enumerate(self.cookie_list):
-            if index <= len(self.cookie_list):
-                if cookie[1] <= 100:
-                    self.current_cookie = index
-                    self.headers['cookie'] = cookie[0]
-                    cookie[1] += 1
-            else:
-                exit()
+        # for index, cookie in enumerate(self.cookie_list):
+        #     if index <= len(self.cookie_list):
+        #         if cookie[1] <= 100:
+        #             self.current_cookie = index
+        #             self.headers['cookie'] = cookie[0]
+        #             cookie[1] += 1
+        #     else:
+        #         exit()
         author_response = dict()
         data = self.create_author_body(mcn_id, start)
         print('当前请求：', data)

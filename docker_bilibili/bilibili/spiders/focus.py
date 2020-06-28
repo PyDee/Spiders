@@ -5,7 +5,7 @@ from items import UserFocus
 
 class FocusSpider(RedisSpider):
     name = 'focus'
-    allowed_domains = ['api.bilibili.md.com', 'api.bilibili.com']
+    allowed_domains = ['api.bilibili.com', 'api.bilibili.com']
     redis_key = "bili_focus:start_urls"
 
     def parse(self, response):

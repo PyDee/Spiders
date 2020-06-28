@@ -8,7 +8,7 @@ from items import Relationship
 class RelationSpider(scrapy.Spider):
     name = 'relation'
     r = redis.Redis(host="redis")
-    allowed_domains = ['api.bilibili.md.com', 'api.bilibili.com']
+    allowed_domains = ['api.bilibili.com', 'api.bilibili.com']
     redis_key = "bili_relation:start_urls"
 
     def parse(self, response):
