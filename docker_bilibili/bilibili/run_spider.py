@@ -4,6 +4,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from spiders.focus import FocusSpider
 from spiders.user import UserSpider
+from spiders.relation import RelationSpider
 
 if __name__ == '__main__':
     mode = sys.argv[1]
@@ -13,6 +14,7 @@ if __name__ == '__main__':
     mode_to_spider = {
         'focus': FocusSpider,
         'user': UserSpider,
+        'relation': RelationSpider,
     }
     process.crawl(mode_to_spider[mode])
     # the script will block here until the crawling is finished

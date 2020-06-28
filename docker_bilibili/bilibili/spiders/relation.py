@@ -3,9 +3,10 @@ import scrapy
 import json
 import redis
 from items import Relationship
+from scrapy_redis.spiders import RedisSpider
 
 
-class RelationSpider(scrapy.Spider):
+class RelationSpider(RedisSpider):
     name = 'relation'
     r = redis.Redis(host="redis")
     allowed_domains = ['api.bilibili.com', 'api.bilibili.com']
