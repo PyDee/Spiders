@@ -63,53 +63,81 @@ class BaiDu:
         # 使用时,直接导入logger就可以使用
         self.logger = Logger().logger
         self.home_url = 'https://www.baidu.com/'
+
         try:
-            ip, port = self.random_return_proxy()
-            self.logger.info('此次获取的代理：ip-{}，port-{}'.format(ip, port))
+            self.ip, self.port = self.random_return_proxy()
+            self.logger.info('此次获取的代理：ip-{}，port-{}'.format(self.ip, self.port))
         except Exception as e:
             self.logger.info('获取代理失败')
-        useragent = self.random_return_ua()
-        self.driver = self.init_chrome(ip, port, useragent)
+        try:
+            self.useragent = self.random_return_ua()
+            self.logger.info('此次获取的ua：ua-{}'.format(self.useragent))
+        except:
+            self.logger.info('ua获取失败')
+        try:
+            self.driver = self.init_chrome(self.ip, self.port, self.useragent)
+        except Exception as e:
+            self.logger.info('设置代理失败:{}'.format(e))
         self.driver.maximize_window()
 
     @staticmethod
     def init_chrome(ip, port, useragent):
         chrome_options = ChromeOptions()
         chrome_options.add_argument('--incognito')
+        print(1)
         # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        print(2)
         chrome_options.add_argument('--disable-infobars')
+        print(3)
         chrome_options.add_argument('--user-agent={}'.format(useragent))
+        print(4)
         chrome_options.add_argument('--proxy-server=http://{}:{}'.format(ip, port))
-        # driver = webdriver.Chrome('..\\chromedriver.exe', chrome_options=chrome_options)
+        print(5)
+        # driver = webdriver.Chrome('../chromedriver.exe', chrome_options=chrome_options)
         driver = webdriver.Remote(
             command_executor="http://127.0.0.1:4444/wd/hub",
             desired_capabilities=DesiredCapabilities.CHROME,
             options=chrome_options,
-
         )
+
         return driver
 
     def get_home_page(self, word):
         self.driver.get(self.home_url)
+
+        self.driver.find_element_by_id('kw').send_keys("QuestMobile")
+        self.driver.find_element_by_id('su').click()
+        time.sleep(10)
+
         self.driver.find_element_by_id('kw').send_keys(word)
         self.driver.find_element_by_id('su').click()
         time.sleep(10)
-        time.sleep(10)
-        # print(self.driver.page_source)
+        try:
+            self.get_title()
+        except Exception as e:
+            self.logger.info('点击失败:{}'.format(e))
+
         self.driver.quit()
+
+    def get_title(self):
+        elements = self.driver.find_elements_by_xpath('//h3[@class="t"]/a')
+        elements[0].click()
+        time.sleep(10)
 
     @staticmethod
     def random_return_word():
-        pre = "QuestMobile "
+        pre = "QuestMobile"
+
         words = [
-            '新媒版'
+            '新媒版',
             '专业版',
             '数据产品',
             '数据报告',
             'APP增长',
         ]
         word = random.choice(words)
-        return pre + word
+        return word
 
     @staticmethod
     def random_return_ua():
@@ -170,27 +198,19 @@ class BaiDu:
     @staticmethod
     def random_return_proxy():
         """获取一个随机代理"""
-        proxy_url = 'http://http.tiqu.alicdns.com/getip3?num=1&type=2&pro=&city=0&yys=0&port=11&time=1&ts=0&ys=0&cs=0&lb=1&sb=0&pb=45&mr=2&regions=&gm=4'
+        proxy_url = 'http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_api_url&packid=0&fa=0&groupid=0&fetch_key=&time=100&qty=10&port=1&format=json&ss=5&css=&dt=0&pro=&city=&usertype=4'
 
         response = requests.get(proxy_url)
         response = response.text
         result = json.loads(response)
         proxy_list = result.get('data')
-        ip = proxy_list[0].get('ip')
-        port = proxy_list[0].get('port')
+        ip = proxy_list[0].get('IP')
+        port = proxy_list[0].get('Port')
         return ip, port
-
-    def get_cookie(self):
-        """此方法没有被调用"""
-        cookie = ''
-        cookies = self.driver.get_cookies()
-        for item in cookies:
-            cookie += "{}={}; ".format(item.get('name'), item.get('value'))
-        cookie = cookie.rstrip('; ')
-        print(cookie)
 
     def main(self):
         word = self.random_return_word()
+        self.logger.info('本次搜索词：{}'.format(word))
         try:
             self.get_home_page(word)
             self.logger.info('成功')
@@ -201,5 +221,3 @@ class BaiDu:
 if __name__ == '__main__':
     bd = BaiDu()
     bd.main()
-    # a, b = bd.random_return_proxy()
-    # print(a, b)
