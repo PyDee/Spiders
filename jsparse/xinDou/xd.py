@@ -74,10 +74,10 @@ class XinDou:
     def __init__(self):
         self.rd = RedisDB()
         self.md = MongoDB()
-        self.mcn_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/search?xyz=85fb585fa423a62e6528106fbf8185fd&nonce=fb1c58647"
-        self.author_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/userType?xyz=8fbd365b0ec608a2222fc8dfc2403c13&nonce=2568f0cde"
+        self.mcn_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/search?xyz=f1b2a2542bc8e1fc47184f57da114b54&nonce=cb2063a4f"
+        self.author_url = "https://xd.newrank.cn/xdnphb/nr/cloud/douyin/mcn/userType?xyz=bf5c8c999635655e38a446f62610d814&nonce=f931d075c"
         self.headers = {
-            "cookie": "Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1591672412,1591684073,1592469229,1593310236; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1593310236; token=039CCD6AFB5D4DAABCE37E78B0E2A048",
+            "cookie": "token=039CCD6AFB5D4DAABCE37E78B0E2A048; Hm_lvt_e20c9ff085f402c8cfc53a441378ca86=1591684073,1592469229,1593310236,1593418888; Hm_lpvt_e20c9ff085f402c8cfc53a441378ca86=1593418888",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36",
         }
         self.current_cookie = 0
