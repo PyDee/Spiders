@@ -84,16 +84,11 @@ class BaiDu:
     def init_chrome(ip, port, useragent):
         chrome_options = ChromeOptions()
         chrome_options.add_argument('--incognito')
-        print(1)
         # chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
-        print(2)
         chrome_options.add_argument('--disable-infobars')
-        print(3)
         chrome_options.add_argument('--user-agent={}'.format(useragent))
-        print(4)
         chrome_options.add_argument('--proxy-server=http://{}:{}'.format(ip, port))
-        print(5)
         # driver = webdriver.Chrome('../chromedriver.exe', chrome_options=chrome_options)
         driver = webdriver.Remote(
             command_executor="http://127.0.0.1:4444/wd/hub",
