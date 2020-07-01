@@ -10,7 +10,7 @@ class UserSpider(RedisSpider):
      start_urls = ['https://api.bilibili.com/x/space/acc/info?mid=2217069&jsonp=jsonp']
     """
     name = 'user'
-    allowed_domains = ['space.bilibili.md.com', 'api.bilibili.md.com']
+    allowed_domains = ['space.bilibili.com']
     # focus-follow 的接口
     follow_info_url = 'https://api.bilibili.com/x/relation/stat?vmid={}&jsonp=jsonp'
     # 获取用户发布视频信息接口

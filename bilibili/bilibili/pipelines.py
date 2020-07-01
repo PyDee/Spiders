@@ -8,7 +8,7 @@ class BiLiBiLiPipeline(object):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client['bili']
         self.User = db["user"]
-        self.Focus = db["focus"]
+        self.follower = db["follower"]
         self.Relationship = db["relation"]
 
     def process_item(self, item, spider):
@@ -17,7 +17,7 @@ class BiLiBiLiPipeline(object):
         if spider.name == 'relationship':
             self.insert_item(self.Relationship, item)
         if spider.name == 'focus':
-            self.insert_item(self.Focus, item)
+            self.insert_item(self.follower, item)
 
     @staticmethod
     def insert_item(collection, item):
@@ -38,7 +38,7 @@ class BiLiBiLiPipeline(object):
                                                       'focus_face': item.get('focus_face'),
                                                       'introduction': item.get('introduction')
                                                       }}}
-            self.update_info(key, add_state, self.Focus)
+            self.update_info(key, add_state, self.follower)
         return item
 
     @staticmethod
