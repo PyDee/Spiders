@@ -6,20 +6,20 @@ services:
     volumes:
       - ./data/mongo:/data/db
     ports:
-      - 7001:27017
+      - 7007:27017
     container_name: bili-mongo
 
   redis:
     image: redis
     command: redis-server
     ports:
-      - 7002:6379
+      - 7009:6379
     volumes:
       - ./data/redis:/data
     container_name: bili-redis
 
   account:
-    image: bossen/bilibili:v20.06.24
+    image: bossen/bilibili:v20.07.01
     volumes:
       - ./bilibili:/app
     depends_on:
@@ -30,7 +30,7 @@ services:
     container_name: bili-account
 
   bili-user:
-    image: bossen/bilibili:v20.06.24
+    image: bossen/bilibili:v20.07.01
     volumes:
       - ./bilibili:/app
     depends_on:
@@ -40,7 +40,7 @@ services:
     container_name: bili-user
 
   bili-relation:
-    image: bossen/bilibili:v20.06.24
+    image: bossen/bilibili:v20.07.01
     volumes:
       - ./bilibili:/app
     depends_on:
@@ -50,7 +50,7 @@ services:
     container_name: bili-relation
 
   bili-focus:
-    image: bossen/bilibili:v20.06.24
+    image: bossen/bilibili:v20.07.01
     volumes:
       - ./bilibili:/app
     depends_on:
