@@ -656,11 +656,33 @@ class KolSpider(scrapy.Spider):
             'https://toobigdata.com/douyin/collections/2595?page=1',
             'https://toobigdata.com/douyin/collections/2596?page=1',
             'https://toobigdata.com/douyin/collections/2597?page=1']
-        for url in kol_urls:
+        kol_length = len(kol_urls)
+        for index in range(kol_length):
             yield scrapy.Request(
-                url=url,
+                url=kol_urls[index],
                 callback=self.parse,
             )
 
     def parse(self, response):
-        pass
+        next_page = response.xpath('//ul[@class="pagination"]/li[last()]/a/@href')
+        if len(next_page) <= 0:
+            return None
+        else:
+            yield scrapy.Request(
+                url=next_page.extract_first(),
+                callback=self.parse,
+            )
+        mcn_id = response.url.split("?")[0].split('/')[-1]
+        kol_elements = response.xpath('//h4[@class="rank-title"]/following-sibling::table/tbody/tr')
+        for kol_element in kol_elements:
+            kol_info = dict()
+            kol_info['mcn_id'] = mcn_id
+            try:
+                kol_info['kol_name'] = kol_element.xpath('./td[1]/a/text()').extract_first()
+            except:
+                continue
+            kol_info['kol_introduce'] = kol_element.xpath('./td[2]/text()').extract_first()
+            kol_info['kol_fans'] = kol_element.xpath('./td[3]/text()').extract_first()
+            kol_info['kol_likes'] = kol_element.xpath('./td[4]/text()').extract_first()
+            kol_info['kol_videos'] = kol_element.xpath('./td[last()]/text()').extract_first()
+            yield kol_info

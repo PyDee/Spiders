@@ -40,8 +40,8 @@ def random_proxy():
         proxy_list = result.get('data')
         proxy_count = len(proxy_list)
         num = random.randint(0, proxy_count)
-        ip = proxy_list[num].get('IP')
-        port = proxy_list[num].get('Port')
+        ip = proxy_list[num].get('ip')
+        port = proxy_list[num].get('port')
         proxy = 'https://{}:{}'.format(ip, port)
 
         return proxy
