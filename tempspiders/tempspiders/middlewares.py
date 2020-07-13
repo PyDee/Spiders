@@ -46,7 +46,7 @@ def random_proxy():
 
         return proxy
     except:
-        pass
+        raise ValueError("proxy is None")
 
 
 class ProxiesMiddleware:

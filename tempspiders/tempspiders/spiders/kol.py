@@ -655,7 +655,8 @@ class KolSpider(scrapy.Spider):
             'https://toobigdata.com/douyin/collections/2594?page=1',
             'https://toobigdata.com/douyin/collections/2595?page=1',
             'https://toobigdata.com/douyin/collections/2596?page=1',
-            'https://toobigdata.com/douyin/collections/2597?page=1']
+            'https://toobigdata.com/douyin/collections/2597?page=1',
+        ]
         kol_length = len(kol_urls)
         for index in range(kol_length):
             yield scrapy.Request(
