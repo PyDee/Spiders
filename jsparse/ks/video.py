@@ -10,6 +10,8 @@
 import time
 import hashlib
 from selenium import webdriver
+import subprocess
+import sys
 
 
 class MonitorKS:
@@ -21,13 +23,18 @@ class MonitorKS:
         self.driver = webdriver.Chrome('../chromedriver.exe', chrome_options=chrome_options)
         pass
 
+    @staticmethod
+    def print_info(string, is_print=True):
+        if is_print:
+            print(string)
+
     def do_filter(self, comment_filter, comment_info):
         encrypt_comment = self.get_str_sha1_secret_str(str(comment_info))
         pre_length = len(comment_filter)
         comment_filter.add(encrypt_comment)
         ofter_length = len(comment_filter)
         if ofter_length > pre_length:
-            print(comment_info)
+            self.print_info(comment_info)
         else:
             pass
 
@@ -44,13 +51,17 @@ class MonitorKS:
 
     def _is_alive(self):
         """判断是否开播"""
-        live_detail = self.driver.find_element_by_xpath('//p[@class="no-live-detail-tip"]').text
-        if "主播尚未开播" in live_detail:
-            return False
-        else:
+        try:
+            # 当直播进行时可能无法获取到内容，需要捕获一下
+            live_detail = self.driver.find_element_by_xpath('//p[@class="no-live-detail-tip"]').text
+            if "主播尚未开播" in live_detail:
+                return False
+            else:
+                return True
+        except:
             return True
 
-    def get_comment_info(self):
+    def get_comment_info(self, user_id):
         """获取聊天室内容"""
         k = 0
         comment_filter = set()
@@ -68,6 +79,7 @@ class MonitorKS:
                 continue
             for li in lists:
                 comment_info = dict()
+                comment_info["user_id"] = user_id
                 comment_info['username'] = li.find_element_by_xpath('./span[@class="username"]').text
                 if comment_info['username'] == '快手官方帐号：':
                     continue
@@ -86,12 +98,13 @@ class MonitorKS:
                     pass
                 self.do_filter(comment_filter, comment_info)
 
-    def refresh_live_page(self, url):
+    def refresh_live_page(self, url, user_id):
         """刷新直播页面，清空聊天室内容"""
         self.driver.get(url)
-        self.get_comment_info()
+        self.get_comment_info(user_id)
 
-    def request_video(self, url=None):
+    def request_video(self, user_id):
+        url = "https://live.kuaishou.com/u/" + user_id
         self.driver.get(url)
         time.sleep(3)
         self.driver.get(url)
@@ -99,13 +112,17 @@ class MonitorKS:
             if self._is_alive():
                 pass
             else:
-                print("当前主播已下线！！！！！！！！！！")
+                self.print_info("当前主播已下线！！！！！！！！！！")
                 break
-            print("刷新页面，清空聊天室……")
-            self.refresh_live_page(url)
+            self.print_info("刷新页面，清空聊天室……")
+            self.refresh_live_page(url, user_id)
         self.driver.quit()
+
+    def main(self):
+        subprocess.call('python ./video.py', creationflags=subprocess.CREATE_NEW_CONSOLE)
 
 
 if __name__ == '__main__':
+    user_id = sys.argv[1]
     mks = MonitorKS()
-    mks.request_video('https://live.kuaishou.com/u/LXX1999123')
+    mks.request_video(user_id)
