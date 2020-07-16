@@ -31,17 +31,25 @@ class RandomUserAgentMiddleware(object):
 
 def random_proxy():
     """获取一个随机代理"""
+    # 芝麻代理
+    # proxy_url = "http://http.tiqu.alicdns.com/getip3?num=5&type=2&pro=&city=0&yys=0&port=11&time=1&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=2&regions=&gm=4"
+    # ip_key = "ip"
+    # port_key = "port"
+
+    # 黑洞代理
+    proxy_url = "http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_api_url&packid=0&fa=0&groupid=0&fetch_key=&time=100&qty=10&port=1&format=json&ss=5&css=&dt=0&pro=&city=&usertype=4"
+    ip_key = "IP"
+    port_key = "Port"
     try:
         # 芝麻代理 url
-        proxy_url = "http://http.tiqu.alicdns.com/getip3?num=5&type=2&pro=&city=0&yys=0&port=11&time=1&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=2&regions=&gm=4"
         response = requests.get(proxy_url)
         response = response.text
         result = json.loads(response)
         proxy_list = result.get('data')
         proxy_count = len(proxy_list)
         num = random.randint(0, proxy_count)
-        ip = proxy_list[num].get('ip')
-        port = proxy_list[num].get('port')
+        ip = proxy_list[num].get(ip_key)
+        port = proxy_list[num].get(port_key)
         proxy = 'https://{}:{}'.format(ip, port)
 
         return proxy
