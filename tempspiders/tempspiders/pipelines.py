@@ -14,15 +14,18 @@ class TempMongoDB(object):
     def __init__(self):
         client = pymongo.MongoClient("127.0.0.1", 27017)
         self.db = client['temp']
-        self.KOL = self.db["kol"]
 
     def process_item(self, item, spider):
-        if spider.name == 'kol':
-            self.insert_item(self.KOL, item)
-
-    @staticmethod
-    def insert_item(collection, item):
-        try:
-            collection.insert(dict(item))
-        except DuplicateKeyError:
+        if item is None:
             pass
+        else:
+            # print(11111111111111, item)
+            self.insert_item(item, 'info')
+
+    def insert_item(self, success_item, collection_name):
+        try:
+            collection = self.db[collection_name]
+            collection.insert_one(success_item)  # 数据写入mongoDB
+            print('success!!!')
+        except:
+            print('写入数据失败')
