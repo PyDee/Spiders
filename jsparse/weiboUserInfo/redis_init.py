@@ -1,27 +1,14 @@
 import os
-import six
 import redis
 
 
 class RedisDB:
     def __init__(self):
-        self.r = redis.Redis()
+        self.r = redis.Redis(host="127.0.0.1", port=7001)
         self.db_name = "vip_ids"
 
-    def fetch_one_element(self):
-        element = self.r.lpop(self.db_name)
-        element = self.bytes_to_str(element)
-        return element
-
-    @staticmethod
-    def bytes_to_str(s, encoding='utf-8'):
-        """Returns a str if a bytes object is given."""
-        if six.PY3 and isinstance(s, bytes):
-            return s.decode(encoding)
-        return s
-
     def redis_init(self):
-        file_path = os.getcwd() + '\\a.txt'
+        file_path = os.getcwd() + '\\wbidforvip.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
             while True:
