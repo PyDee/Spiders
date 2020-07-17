@@ -33,6 +33,9 @@ class WeibovipinfoSpider(RedisSpider):
         return Request(url, dont_filter=True)
 
     def parse(self, response):
+        request_url = response.url
+        user_id = request_url.split("/")[-2]
+        user_id = user_id.strip("100505")
         result = '<div id="response">{}</div>'
         elements = re.findall("<script>FM.view\((.*?)\)</script>", response.text, re.M)
         if len(elements) <= 0:
@@ -43,6 +46,7 @@ class WeibovipinfoSpider(RedisSpider):
                 result = result.format(dict_ele.get('html').replace(r"\/", '/'))
                 break
         item_dict = self.deal_html(result)
+        item_dict["user_id"] = user_id
         yield item_dict
 
     def deal_html(self, html):
