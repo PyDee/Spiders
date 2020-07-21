@@ -1,5 +1,7 @@
 """测试update"""
 import pymongo
+import codecs
+import csv
 
 
 class DBMongo:
@@ -26,9 +28,46 @@ class DBMongo:
         except Exception as e:
             print("更新失败:{}".format(e))
 
+    def write_bili_relation_to_txt(self, skip=0):
+        # 链接mongo数据库
+        db = self.my_client['bili']
+        my_collection = db.relation
+        # 查询库中数据
+        skip_num = 10000000 * skip
+        cursor = my_collection.find().limit(10000000).skip(skip_num)
+        # 打开csv文件
+        with codecs.open('data{}.txt', 'w', 'utf-8') as file:
+            # 写入多行用writerows
+            for data in cursor:
+                file.write("{}\t{}\t{}\t{}\t{}\n".format(data["user_id"],
+                                                         data["focus_id"],
+                                                         data["focus_name"].replace("\n", '').replace("\t", ''),
+                                                         data["focus_face"],
+                                                         data["introduction"].replace("\n", '').replace("\t", '')
+                                                         ))
+
+    def write_bili_follower_to_txt(self):
+        # 链接mongo数据库
+        db = self.my_client['bili']
+        my_collection = db.follower
+        # 查询库中数据
+        cursor = my_collection.find().limit(10000000)
+        # 打开csv文件
+        with codecs.open('follower.txt', 'w', 'utf-8') as file:
+            # 写入多行用writerows
+            for data in cursor:
+                file.write("{}\t{}\t{}\n".format(
+                    data["focus_id"],
+                    data["focus_fans"],
+                    data["focus_focus"],
+                ))
+
 
 if __name__ == '__main__':
     db = DBMongo()
-    key = {"name": "test5", 'age': 1}
-    add_state = {'$addToSet': {'list': {"focus": 5, 'name': '小明', 'age': 66}}}
-    db.update_info(key, add_state, 'test')
+    # key = {"name": "test5", 'age': 1}
+    # add_state = {'$addToSet': {'list': {"focus": 5, 'name': '小明', 'age': 66}}}
+    # db.update_info(key, add_state, 'test')
+    # for i in range(5, 15):
+    #     db.write_bili_to_txt(skip=i)
+    db.write_bili_follower_to_txt()
