@@ -16,11 +16,14 @@ class TempMongoDB(object):
         self.db = client['temp']
 
     def process_item(self, item, spider):
-        if item is None:
-            pass
-        else:
-            # print(11111111111111, item)
-            self.insert_item(item, 'info')
+        if spider.name == "weiboVipInfo":
+            if item is None:
+                pass
+            else:
+                # print(11111111111111, item)
+                self.insert_item(item, 'info')
+        if spider.name == 'biliNav':
+            self.insert_item(item, 'navBili')
 
     def insert_item(self, success_item, collection_name):
         try:
