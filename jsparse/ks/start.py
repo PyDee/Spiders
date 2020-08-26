@@ -17,10 +17,11 @@ if __name__ == '__main__':
     # t.start()
 
     user_ids = [
-        "Dabei6888",
-        "DJ686868",
-        "xiaokeaihanhan",
+        "YY556677MM",
+        "LCv5b7666",
+        "lrb123456",
     ]
     for user_id in user_ids:
         p = Process(target=func, args=(user_id,))
+        print(p.pid)
         p.start()
