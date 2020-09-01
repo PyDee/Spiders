@@ -10,7 +10,7 @@ class KuaiShou:
     heartbeatInterval = 20
 
     @staticmethod
-    async def get_ws_info(url):
+    async def get_ws_info(token, livestreamid):
         """获取wss连接信息
         Args:
             直播间完整地址
@@ -22,24 +22,8 @@ class KuaiShou:
             page_id:
             :param url:
         """
-        rid = url.split('/')[-1]
-        url = 'https://m.gifshow.com/fw/live/' + str(rid)  # 移动版直播间地址
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, '
-                          'like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
-            'Cookie': 'did=web_2a570a791d027ad80fa7fc88874a4d65; didv=1596786114425; clientid=3; client_key=65890b29; kuaishou.live.bfb1s=7206d814e5c089a58c910ed8bf52ace5; userId=2045309168; userId=2045309168; Hm_lvt_86a27b7db2c5c0ae37fee4a8a35033ee=1596786179,1597738922,1598841613; Hm_lpvt_86a27b7db2c5c0ae37fee4a8a35033ee=1598841613; kuaishou.live.web_st=ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgATnjvjLo4OGsGwhubemYsEryrrSbGi8nc2xqFYzSWY2DdYXQzF1JS5-JIfRnhC7BAjJb2lkV6QDgCQwe_stwpRcDvmhc8-MTKWDz5i1Vb8JLM6iwE_VAFx7bM4DU2RfzzR7MSPgqy_bWSYB4YOSbOHDOlMGUxUeDDfrCvPkSO2a-LYhWPYCYVOH5Qx9Geq68Q3NzTtD6GQgS8W5C1D89gnoaEtjNYCqMvUVZmp6WeyTUfct3aCIgFqAshOI-oeT5dk9m4rjMDECJnK6i1MWsarJUEZw2KUAoBTAB; kuaishou.live.web_ph=84431c48db02e729467a237c3111403974af; WEBLOGGER_INCREAMENT_ID_KEY=18715; WEBLOGGER_HTTP_SEQ_ID=18626'}  # 请求失败则更换cookie中的did字段
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=headers) as resp:
-                res = await resp.text()
-        # wsfeedinfo = re.search(r'wsFeedInfo":(.*),"liveExist', res)
-        # if wsfeedinfo:
-        #     wsfeedinfo = json.loads(wsfeedinfo.group(1))
-        # else:
-        #     raise Exception('找不到 wsFeedInfo，可能链接错误或 Cookie 过期')
-
-        # livestreamid, [websocketurls], token = wsfeedinfo.values()
-        token = 'jnulr/CfUUZn9h89lku9FuHrFjKt1LlvLEWploUiaME8VZKyJagV599nFuKrUvs0o0oqGAYEHE3trbuhiD+texpgqJojhx8tcHR93zRQvubaaD7lIACuY1pwGL4rsoFx6PpwIUC7KIQSYMLK4HNheg=='
-        livestreamid = 'Qc04mxukNbI'
+        # token = 'Ds4f89bdMcDjECgYkXi4L09xXnTuMdf6rlyWVajlSRVtGygfUxYHTSfExzAPpObg8MK97dYoomjMn/mOJGqO9r3iEQGpG3h3Fj2Lmeb7opJ0X4e1th9Yz/x2MJCzShNWthlEnmJvXiPtMaVM19NM/A=='
+        # livestreamid = 'Qc04mxukNbI'
         websocketurls = 'wss://live-ws-pg-group2.kuaishou.com/websocket'
         page_id = KuaiShou.get_page_id()
 
@@ -76,7 +60,7 @@ class KuaiShou:
         if p.payloadType == 310:
             s.ParseFromString(p.payload)
 
-            def f(*feeds):
+            def f(displayWatchingCount, displayLikeCount, *feeds):
                 gift = {
                     1: "荧光棒", 2: "棒棒糖", 3: "荧光棒", 4: "PCL加油", 7: "么么哒", 9: "啤酒", 10: "甜甜圈", 14: "钻戒", 16: "皇冠",
                     25: "凤冠", 33: "烟花",
@@ -113,10 +97,16 @@ class KuaiShou:
                             name = i.user.userName
                             content = i.content if hasattr(i, 'content') else '送 ' + gift.get(i.giftId, '') \
                                 if hasattr(i, 'giftId') else '点亮了 ❤'
-                            info = {'name': name, 'content': content, 'msg_type': 'danmaku'}
+                            info = {
+                                # 'displayWatchingCount': displayWatchingCount,
+                                # 'displayLikeCount': displayLikeCount,
+                                'name': name, 'content': content,
+                                'msg_type': 'danmaku'
+                            }
                             infos.append(info.copy())
                 return infos
 
-            msgs = f(s.commentFeeds, s.giftFeeds, s.likeFeeds)
+            msgs = f(s.displayWatchingCount, s.displayLikeCount, s.commentFeeds, s.giftFeeds, s.likeFeeds)
+            # msgs = f(s.commentFeeds, s.giftFeeds, s.likeFeeds)
 
         return msgs
