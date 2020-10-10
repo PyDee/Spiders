@@ -12,7 +12,7 @@ class DanmakuClient:
     实例化 某个网站的 类，不用单独去实现，可以用统一的方法实例化
     """
 
-    def __init__(self, token, livestreamid, q):
+    def __init__(self, unique_name, token, livestreamid, q):
         self.token = token
         self.livestreamid = livestreamid
         self.__site = None
@@ -42,6 +42,7 @@ class DanmakuClient:
         while not self.__stop and self.__site.heartbeat:
             await asyncio.sleep(self.__site.heartbeatInterval)
             try:
+                print(f"发送心跳数据：{self.__site.heartbeat}")
                 await self.__ws.send_bytes(self.__site.heartbeat)
             except:
                 pass

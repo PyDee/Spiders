@@ -9,7 +9,6 @@ message SocketMessage {
     optional PayloadType payloadType = 1;
     optional CompressionType compressionType = 2;
     optional bytes payload = 3;
-
     enum CompressionType {
         UNKNOWN = 0;
         NONE = 1;

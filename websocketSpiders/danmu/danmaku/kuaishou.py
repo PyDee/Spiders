@@ -1,3 +1,4 @@
+# coding:utf-8
 from . import kuaishou_pb2 as pb
 import aiohttp
 import re
@@ -95,11 +96,9 @@ class KuaiShou:
                     if feed:
                         for i in feed:
                             name = i.user.userName
-                            content = i.content if hasattr(i, 'content') else '送 ' + gift.get(i.giftId, '') \
-                                if hasattr(i, 'giftId') else '点亮了 ❤'
+                            content = i.content if hasattr(i, 'content') else '送 ' + gift.get(i.giftId, '') if hasattr(
+                                i, 'giftId') else '点亮了 ❤'
                             info = {
-                                # 'displayWatchingCount': displayWatchingCount,
-                                # 'displayLikeCount': displayLikeCount,
                                 'name': name, 'content': content,
                                 'msg_type': 'danmaku'
                             }
