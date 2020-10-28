@@ -54,6 +54,8 @@ class BiLiPipeline(object):
         self.User = db["user"]
         self.Focus = db["follower"]
         self.Relation = db["relation"]
+        self.Kol_User = db["kol_user"]
+        self.Kol_Video = db["kol_video"]
 
     def process_item(self, item, spider):
         if spider.name == 'user':
@@ -62,6 +64,11 @@ class BiLiPipeline(object):
             self.insert_item(self.Focus, item)
         if spider.name == 'relation':
             self.insert_item(self.Relation, item)
+        if spider.name == 'kol_user':
+            self.insert_item(self.Kol_User, item)
+        if spider.name == 'kol_video':
+            self.insert_item(self.Kol_Video, item)
+
         return item
 
     @staticmethod
