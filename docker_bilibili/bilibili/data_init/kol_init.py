@@ -53,6 +53,7 @@ class RedisDB:
 
 
 if __name__ == '__main__':
+    # 执行释义：python kol_init.py spider_name init_file_name
     # 执行方法：python kol_init.py kol_user kol.txt
     ori_rei = RedisDB()
     mode = sys.argv[1]
