@@ -11,7 +11,6 @@ from .bos_filter import RedisDB, BosFilter
 
 class RelationshipSpider(RedisSpider):
     rdb = RedisDB()
-    bf = BosFilter()
 
     r = redis.Redis(host="127.0.0.1")
     name = 'relationship'

@@ -3,8 +3,7 @@ import sys
 import os
 import redis
 
-# from ..settings import REDIS_HOST
-REDIS_HOST = "127.0.0.1"
+REDIS_HOST = "localhost"
 
 
 class RedisDB:
