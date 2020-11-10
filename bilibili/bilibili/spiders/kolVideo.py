@@ -12,7 +12,7 @@ import time
 import logging
 import scrapy
 from scrapy_redis.spiders import RedisSpider
-from items import KolVideo
+from ..items import KolVideo
 
 
 class KolVideoSpider(RedisSpider):
@@ -22,7 +22,12 @@ class KolVideoSpider(RedisSpider):
     name = 'kol_video'
     allowed_domains = ['api.bilibili.com']
     redis_key = "kol_video"
+    custom_settings = {
+        "RETRY_TIMES": 5,
+        "DOWNLOAD_TIMEOUT": 3,
+        "DOWNLOAD_DELAY": 0.1,
 
+    }
     # 作者视频列表url: 用户id-页数
     video_list_url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&order=pubdate&jsonp=jsonp'
 
@@ -112,8 +117,7 @@ class KolVideoSpider(RedisSpider):
         detail_item["staff"] = staff  # 创作团队
         detail_item["pubdate"] = self.temp_to_time(pubdate)  # 提交时间
         item.update(detail_item)
-        print(item)
-        # yield item
+        yield item
 
     @staticmethod
     def temp_to_time(temp: int) -> str:

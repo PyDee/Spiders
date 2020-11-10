@@ -52,11 +52,11 @@ DOWNLOAD_DELAY = 0.01
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'bilibili.middlewares.ProxiesMiddleware': 100,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
+    'bilibili.middlewares.ProxiesMiddleware': 551,
     'bilibili.middlewares.RandomUserAgentMiddleware': 543,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 }
-
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
@@ -112,6 +112,9 @@ RANDOM_UA_TYPE = 'random'
 # Persist
 SCHEDULER_PERSIST = True
 
-RETRY_TIMES = 20
+RETRY_TIMES = 10
 
 DOWNLOAD_TIMEOUT = 3
+
+# 解决爬取遗漏问题
+AUTOTHROTTLE_ENABLED = True
