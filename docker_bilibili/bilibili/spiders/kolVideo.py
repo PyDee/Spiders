@@ -6,6 +6,7 @@
 @description : 哔哩哔哩 kol 数据抓取程序  获取用户发布视频列表及视频相关数据
 
 """
+import re
 import json
 import time
 import logging
@@ -20,10 +21,15 @@ class KolVideoSpider(RedisSpider):
     """
     name = 'kol_video'
     allowed_domains = ['api.bilibili.com']
-    redis_key = "kol_user"
+    redis_key = "kol_video"
+    custom_settings = {
+        "RETRY_TIMES": 5,
+        "DOWNLOAD_TIMEOUT": 3,
+        "DOWNLOAD_DELAY": 0.1,
 
+    }
     # 作者视频列表url: 用户id-页数
-    # video_list_url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&order=pubdate&jsonp=jsonp'
+    video_list_url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&order=pubdate&jsonp=jsonp'
 
     # 单个视频的点赞-投币-分享-收藏等数据
     video_detail_url = "https://api.bilibili.com/x/web-interface/view/detail?bvid={}&aid={}"
@@ -40,10 +46,18 @@ class KolVideoSpider(RedisSpider):
         list_obj = data.get('list')
 
         # video 发布数量相关数据
-        total_list = list_obj.get('tlist')
-        total = 0
-        for element in total_list.values():
-            total += int(element.get('count'))
+        page_info = data.get('page')
+        total = page_info.get('count')
+
+        current_page = page_info.get('pn')
+        kol_uid = re.search("mid=(.*?)&ps", response.url).group(1)
+        # 处理多页
+        page_count = total // 30 + 1
+        if current_page < page_count:
+            yield scrapy.Request(
+                url=self.video_list_url.format(kol_uid, current_page + 1),
+                callback=self.parse
+            )
 
         # video列表相关数据
         video_list = list_obj.get('vlist')
@@ -57,6 +71,7 @@ class KolVideoSpider(RedisSpider):
             video_item["bvid"] = video.get('bvid')  # 英文id
             video_item["aid"] = video.get('aid')  # 数字id
             video_item["created"] = self.temp_to_time(video.get('created'))  # 上传时间
+            video_item["total"] = total  # 视频总数
 
             # 根据 投稿视频列表获取视频的点赞，投币，分享，收藏等详细数据
             yield scrapy.Request(

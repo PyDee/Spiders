@@ -45,7 +45,7 @@ class RedisDB:
                     break
                     pass
                 new_url = url.format(lines)
-                self.r.lpush(f'{spider_name}:start_urls', new_url)
+                self.r.lpush(f'{spider_name}', new_url)
                 count = count + 1
                 # 每10000 条进行一次统计报数
                 if count % 10000 == 0:

@@ -12,9 +12,11 @@ DOWNLOAD_DELAY = 0.01
 
 # Enable or disable downloader middlewares
 DOWNLOADER_MIDDLEWARES = {
-    'middlewares.ProxiesMiddleware': 100,
+    # 规避 retry 代理失效
+    'bilibili.middlewares.ProxiesMiddleware': 551,
+    'bilibili.middlewares.RandomUserAgentMiddleware': 543,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
-    'middlewares.RandomUserAgentMiddleware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 }
 
 # Configure item pipelines
@@ -26,10 +28,10 @@ ITEM_PIPELINES = {
 
 proxy_url = 'http://ip.ipjldl.com/index.php/api/entry?method=proxyServer.hdtiqu_api_url&packid=0&fa=0&groupid=0&fetch_key=&time=100&qty=10&port=1&format=json&ss=5&css=&dt=0&pro=&city=&usertype=4'
 
-MONGO_HOST = 'mongo'
+MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 
-REDIS_HOST = "redis"
+REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 REDIS_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
 
@@ -44,3 +46,5 @@ RANDOM_UA_TYPE = 'random'
 SCHEDULER_PERSIST = True
 
 RETRY_TIMES = 20
+
+DOWNLOAD_TIMEOUT = 3

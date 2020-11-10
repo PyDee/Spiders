@@ -1,8 +1,8 @@
 import json
 import random
 import requests
-import time
-from twisted.internet.error import TimeoutError, DNSLookupError, ConnectionRefusedError, ConnectionDone, ConnectError, \
+from twisted.internet.error import TimeoutError, DNSLookupError, \
+    ConnectionRefusedError, ConnectionDone, ConnectError, \
     ConnectionLost, TCPTimedOutError
 from scrapy.core.downloader.handlers.http11 import TunnelError
 from twisted.internet import defer
@@ -11,8 +11,6 @@ from settings import proxy_url
 
 
 class RandomUserAgentMiddleware(object):
-    """随机更换 User-Agent"""
-
     def __init__(self):
         self.USER_AGENT = [
             'Mozilla/4.0(compatible;MSIE7.0;WindowsNT5.1;AvantBrowser)',
@@ -55,20 +53,17 @@ class RandomUserAgentMiddleware(object):
 
 def random_proxy():
     """获取一个随机代理"""
-    try:
-        response = requests.get(proxy_url)
-        response = response.text
-        result = json.loads(response)
-        proxy_list = result.get('data')
-        proxy_count = len(proxy_list)
-        num = random.randint(0, proxy_count)
-        ip = proxy_list[num].get('IP')
-        port = proxy_list[num].get('Port')
-        proxy = 'https://{}:{}'.format(ip, port)
+    url = proxy_url
+    result = json.loads(requests.get(url).text)
+    proxy_list = result.get('data')
+    proxy_count = len(proxy_list)
 
-        return proxy
-    except:
-        pass
+    num = random.randint(0, proxy_count)
+    ip = proxy_list[num].get('IP')
+    port = proxy_list[num].get('Port')
+    proxy = 'https://{}:{}'.format(ip, port)
+
+    return proxy
 
 
 class ProxiesMiddleware:
@@ -82,20 +77,21 @@ class ProxiesMiddleware:
         self.count = 0
 
     def process_request(self, request, spider):
-        if self.count % 500 == 0:
-            self.proxy = random_proxy()
-        self.count += 1
         spider.logger.info("[proxy]   {}".format(self.proxy))
         request.meta["proxy"] = self.proxy
 
     def process_response(self, request, response, spider):
         # 因为遇到过那种返回状态码是200但是是一个被反扒的界面，界面固定都是小于3000字符
         # if len(response.text) < 3000 or response.status in [403, 400, 405, 301, 302, 418]:
-        if response.status in [403, 400, 405, 301, 302, 418]:
+        if response.status in [101, 403, 400, 405, 301, 302, 418, 503]:
             spider.logger.info("[此代理报错]   {}".format(self.proxy))
+            # rm_proxy(self.proxy)
+            # while True:
             new_proxy = random_proxy()
+            # if new_proxy not in select_proxy_list():
             self.proxy = new_proxy
             spider.logger.info("[更的的新代理为]   {}".format(self.proxy))
+            # break
             new_request = request.copy()
             new_request_l = new_request.replace(url=request.url)
             return new_request_l
@@ -107,9 +103,13 @@ class ProxiesMiddleware:
             # 在日志中打印异常类型
             spider.logger.info("[Got exception]   {}".format(exception))
             spider.logger.info("[需要更换代理重试]   {}".format(self.proxy))
+            # rm_proxy(self.proxy)
+            # while True:
             new_proxy = random_proxy()
+            # if new_proxy not in select_proxy_list():
             self.proxy = new_proxy
             spider.logger.info("[更换后的代理为]   {}".format(self.proxy))
+            # break
             new_request = request.copy()
             new_request_l = new_request.replace(url=request.url)
             return new_request_l

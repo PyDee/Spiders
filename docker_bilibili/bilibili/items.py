@@ -52,6 +52,7 @@ class Video(scrapy.Item):
     bvid = scrapy.Field()  # 英文id
     aid = scrapy.Field()  # 数字id
     created = scrapy.Field()  # 发布时间
+    total = scrapy.Field()  # 发布视频总数
 
     # 播放页数据
     pubdate = scrapy.Field()  # 发布时间
