@@ -1,13 +1,17 @@
 import json
 import random
 import requests
+from fake_useragent import UserAgent
+import redis
 from twisted.internet.error import TimeoutError, DNSLookupError, \
     ConnectionRefusedError, ConnectionDone, ConnectError, \
     ConnectionLost, TCPTimedOutError
 from scrapy.core.downloader.handlers.http11 import TunnelError
 from twisted.internet import defer
 from twisted.web.client import ResponseFailed
-from settings import proxy_url
+from .settings import proxy_url
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
+from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
 
 
 class RandomUserAgentMiddleware(object):
@@ -66,7 +70,7 @@ def random_proxy():
     return proxy
 
 
-class ProxiesMiddleware:
+class ProxiesMiddleware():
     ALL_EXCEPTIONS = (defer.TimeoutError, TimeoutError, DNSLookupError,
                       ConnectionRefusedError, ConnectionDone, ConnectError,
                       ConnectionLost, TCPTimedOutError, ResponseFailed,
@@ -110,6 +114,7 @@ class ProxiesMiddleware:
             self.proxy = new_proxy
             spider.logger.info("[更换后的代理为]   {}".format(self.proxy))
             # break
+            # self._retry(request, exception, spider)
             new_request = request.copy()
             new_request_l = new_request.replace(url=request.url)
             return new_request_l

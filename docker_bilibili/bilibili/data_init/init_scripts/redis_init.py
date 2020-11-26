@@ -3,7 +3,7 @@ import sys
 import os
 import redis
 
-REDIS_HOST = "redis"
+REDIS_HOST = "localhost"
 
 
 class RedisDB:
@@ -12,7 +12,7 @@ class RedisDB:
         pass
 
     def redis_init(self, spider_name, url):
-        file_path = os.getcwd() + '/init.txt'
+        file_path = os.getcwd() + '\\init.txt'
         count = 0
         with open(file_path, 'r') as file_to_read:
             while True:

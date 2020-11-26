@@ -139,3 +139,5 @@ get_HeiDongIP_BalanceLink.py
 jsparse/digitaling/article.txt
 recognitions/*
 jsparse/alexa/config.py
+webPro/*
+bilibili/bilibili/data_init/seeds/*

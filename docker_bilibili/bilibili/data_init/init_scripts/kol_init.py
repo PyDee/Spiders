@@ -9,7 +9,7 @@ import sys
 import os
 import redis
 
-REDIS_HOST = "redis"
+REDIS_HOST = "localhost"
 
 
 class RedisDB:
@@ -34,7 +34,9 @@ class RedisDB:
         :return:None
         """
         self.del_spider_key(spider_name)
-        file_path = os.getcwd() + f'/{init_file_name}'
+        pwd = os.getcwd()
+        father_path = os.path.abspath(os.path.dirname(pwd) + os.path.sep + ".")
+        file_path = father_path + f'/seeds/{init_file_name}'
         # 计数器
         count = 0
         with open(file_path, 'r') as file_to_read:
