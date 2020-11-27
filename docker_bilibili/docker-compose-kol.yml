@@ -1,28 +1,10 @@
 version: '3'
-
 services:
-  mongo:
-    image: mongo
-    volumes:
-      - ./data/mongo:/data/db
-    ports:
-      - 7007:27017
-    container_name: bili-mongo
-
-  redis:
-    image: redis
-    command: redis-server
-    ports:
-      - 7009:6379
-    volumes:
-      - ./data/redis:/data
-    container_name: bili-redis
-
   account:
     image: bossen/bilibili:v20.07.01
     volumes:
       - ./bilibili:/app
-    depends_on:
+    external_links:
       - mongo
       - redis
     stdin_open: true
@@ -33,7 +15,7 @@ services:
     image: bossen/bilibili:v20.10.30
     volumes:
       - ./bilibili:/app
-    depends_on:
+    external_links:
       - mongo
       - redis
     command: python run_spider.py kol_user
@@ -43,8 +25,12 @@ services:
     image: bossen/bilibili:v20.10.30
     volumes:
       - ./bilibili:/app
-    depends_on:
+    external_links:
       - mongo
       - redis
     command: python run_spider.py kol_video
     container_name: bili-kol-video
+
+networks:
+  root_redis-mongo
+  external: true
