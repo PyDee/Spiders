@@ -12,7 +12,7 @@ import time
 import logging
 import scrapy
 from scrapy_redis.spiders import RedisSpider
-from items import Video
+from items import KolVideo
 
 
 class KolVideoSpider(RedisSpider):
@@ -62,7 +62,7 @@ class KolVideoSpider(RedisSpider):
         # video列表相关数据
         video_list = list_obj.get('vlist')
         for video in video_list:
-            video_item = Video()
+            video_item = KolVideo()
             video_item["mid"] = video.get('mid')  # KOL 用户id
             video_item["title"] = video.get('title')  # 标题
             video_item["play"] = video.get('play')  # 播放数

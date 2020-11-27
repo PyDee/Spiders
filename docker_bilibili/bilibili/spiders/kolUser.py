@@ -7,7 +7,7 @@
 """
 import json
 import scrapy
-from items import UserInfo
+from items import KolUser
 from scrapy_redis.spiders import RedisSpider
 
 
@@ -38,7 +38,7 @@ class KolUserSpider(RedisSpider):
         :return:
         """
         # 构建用户信息存储结构
-        item = UserInfo()
+        item = KolUser()
 
         html = json.loads(response.body)
         data = html.get('data')
