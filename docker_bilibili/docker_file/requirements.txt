@@ -38,5 +38,5 @@ tqdm==4.46.0
 Twisted==20.3.0
 urllib3==1.25.9
 w3lib==1.21.0
-websockets==8.1
+websockets==9.1
 zope.interface==5.1.0
